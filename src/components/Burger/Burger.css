@@ -1,0 +1,83 @@
+.burger-button {
+  display: none;
+  align-items: center;
+  position: absolute;
+  top: 27px;
+  right: 38px;
+  width: 28px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.3s ease;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.burger-button:hover {
+  opacity: 0.8;
+}
+
+.burger-button:focus-visible {
+  outline: 1px solid #fff;
+  outline-offset: 4px;
+  border-radius: 5px;
+}
+
+.burger-button_off > span,
+.burger-button_off > span::before,
+.burger-button_off > span::after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.burger-button_off > span::before {
+  content: "";
+  top: -10px;
+}
+
+.burger-button_off > span::after {
+  content: "";
+  top: 10px;
+}
+
+.burger-button_on > span,
+.burger-button_on > span::before,
+.burger-button_on > span::after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+}
+
+.burger-button_on > span::before {
+  content: "";
+  top: 0;
+  transform: rotate(0);
+}
+
+.burger-button_on > span::after {
+  content: "";
+  top: 0;
+  transform: rotate(90deg);
+}
+
+@media screen and (max-width: 800px) {
+  .burger-button {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .burger-button {
+    right: 23px;
+    width: 22px;
+  }
+}
