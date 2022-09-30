@@ -78,7 +78,7 @@
   line-height: 1.21;
   color: #fff;
   text-decoration: none;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .aboutme__contact-link:hover {
