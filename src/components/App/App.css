@@ -1,5 +1,5 @@
 .app {
-  background-color: #202020;
+  background-color: #fff;
   min-height: 100vh;
   min-width: 320px;
   width: 100%;
@@ -8,7 +8,7 @@
   flex-direction: column;
   position: relative;
   font-family: "Inter", Arial, sans-serif;
-  color: #FFFFFF;
+  color: #000;
   overflow: hidden;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;

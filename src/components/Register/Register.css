@@ -22,7 +22,7 @@
 
 .register__link {
   transition: all 0.3s ease;
-  color: #4285f4;
+  color: #2be080;
   text-decoration: none;
   line-height: 0;
   max-width: 38px;
@@ -81,7 +81,7 @@
   font-size: 14px;
   line-height: 1.21;
   background-color: transparent;
-  color: #fff;
+  color: #000;
 }
 
 .register__input_error {
@@ -105,7 +105,7 @@
 .register__button {
   margin-top: auto;
   border-style: none;
-  background-color: #4285f4;
+  background-color: #2be080;
   border-radius: 3px;
   color: #fff;
   font-size: 14px;

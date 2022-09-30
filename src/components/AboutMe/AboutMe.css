@@ -1,9 +1,10 @@
 .aboutme {
-  background-color: #202020;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-height: 1140px;
 }
 
 .aboutme__container {
@@ -22,7 +23,7 @@
   font-size: 22px;
   line-height: 1.23;
   letter-spacing: -0.04em;
-  border-bottom: 1px solid #dadada;
+  border-bottom: 1px solid #000;
   padding-bottom: 22px;
   width: 100%;
   box-sizing: border-box;
@@ -75,8 +76,8 @@
 .aboutme__contact-link {
   font-weight: 500;
   font-size: 14px;
-  line-height: 1.21;
-  color: #fff;
+  line-height: 16.94px;
+  color: #000;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -87,6 +88,7 @@
 
 .aboutme__avatar {
   width: 270px;
+  height: 327px;
   object-fit: cover;
   border-radius: 10px;
 }

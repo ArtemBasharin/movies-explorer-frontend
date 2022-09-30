@@ -1,5 +1,5 @@
 .portfolio {
-  background-color: #202020;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +22,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 1.11;
-  color: #8b8b8b;
+  color: #a0a0a0;
 }
 
 .portfolio__list {
@@ -37,7 +37,7 @@
 .portfolio__item {
   display: flex;
   padding-bottom: 19px;
-  border-bottom: 1px solid #424242;
+  border-bottom: 1px solid #e8e8e8;
   box-sizing: border-box;
   transition: all 0.3s ease;
 }
@@ -57,7 +57,7 @@
   font-size: 30px;
   line-height: 1.67;
   letter-spacing: -0.04em;
-  color: #fff;
+  color: #000;
   width: 100%;
   position: relative;
   transition: all 0.3s ease;

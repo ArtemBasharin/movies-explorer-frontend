@@ -1,5 +1,5 @@
 .project-about {
-  background-color: #202020;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +21,7 @@
   margin: 0;
   font-weight: 400;
   font-size: 22px;
-  line-height: 1.23;
+  line-height: 26.63px;
   letter-spacing: -0.04em;
   border-bottom: 1px solid #dadada;
   padding-bottom: 23px;
@@ -87,7 +87,7 @@
   font-size: 14px;
   line-height: 1.21;
   color: #000;
-  background-color: #3ddc84;
+  background-color: #2be080;
 }
 
 .project-about__frontend-duration {
@@ -98,7 +98,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
-  background-color: #303030;
+  background-color: #f2f2f2;
 }
 
 .project-about__scheme-title {
