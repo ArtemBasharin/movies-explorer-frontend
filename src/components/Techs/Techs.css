@@ -22,7 +22,7 @@
   font-size: 22px;
   line-height: 1.23;
   letter-spacing: -0.04em;
-  border-bottom: 1px solid #dadada;
+  border-bottom: 1px solid #000;
   padding-bottom: 22px;
   width: 100%;
   box-sizing: border-box;
@@ -101,7 +101,7 @@
 
 @media screen and (max-width: 400px) {
   .techs {
-    background-color: #202020;
+    background-color: #fff;
   }
 
   .techs__container {

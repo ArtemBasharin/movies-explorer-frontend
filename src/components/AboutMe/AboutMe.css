@@ -66,7 +66,7 @@
 }
 
 .aboutme__contacts {
-  margin: 100px 0 0;
+  margin: 35px 0 0;
   display: flex;
   gap: 20px;
   list-style: none;
@@ -91,6 +91,7 @@
   height: 327px;
   object-fit: cover;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 800px) {
@@ -99,7 +100,7 @@
   }
 
   .aboutme__biography {
-    max-width: 384px;
+    max-width: 364px;
   }
 
   .aboutme__name {
@@ -121,12 +122,16 @@
   }
 
   .aboutme__contacts {
-    margin-top: 87px;
+    margin-top: 15px;
   }
 
   .aboutme__avatar {
     width: 255px;
+    height: 307px;
   }
+}
+
+@media screen and (max-width: 650px) {
 }
 
 @media screen and (max-width: 650px) {
@@ -172,5 +177,8 @@
 
   .aboutme__contacts {
     margin-top: 40px;
+  }
+  .aboutme__avatar {
+    height: 352px;
   }
 }

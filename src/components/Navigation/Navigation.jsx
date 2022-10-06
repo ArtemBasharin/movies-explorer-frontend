@@ -11,7 +11,7 @@ export default function Navigation({ authorized, isBurgerOpened, onClickBurger }
     < >
       {!authorized ? (
         <nav className="navigation">
-          <ul className="navigation__list">
+          <ul className="navigation__list navigation__list_signup">
             <li>
               <Link to="/signup" className="navigation__link navigation__link_landing">
                 Регистрация
@@ -35,21 +35,25 @@ export default function Navigation({ authorized, isBurgerOpened, onClickBurger }
                 </NavLink>
               </li>
             )}
-            <li className="navigation__item">
-              <NavLink to="/movies" className="navigation__link" activeClassName={activeLink}>
-                Фильмы
-              </NavLink>
-            </li>
-            <li className="navigation__item">
-              <NavLink to="/saved-movies" className="navigation__link" activeClassName={activeLink}>
-                Сохранённые фильмы
-              </NavLink>
-            </li>
-            <li className="navigation__item">
-              <NavLink to="/profile" className="navigation__link navigation__link_type_account" activeClassName={activeLink}>
-                Аккаунт
-              </NavLink>
-            </li>
+            <div className='navigation__container'>
+                          <div className='navigation__item_separate'>
+                            <li className="navigation__item">
+                              <NavLink to="/movies" className="navigation__link" activeClassName={activeLink}>
+                                Фильмы
+                              </NavLink>
+                            </li>
+                            <li className="navigation__item">
+                              <NavLink to="/saved-movies" className="navigation__link" activeClassName={activeLink}>
+                                Сохранённые фильмы
+                              </NavLink>
+                            </li>
+                          </div>
+                          </div>
+                          <div className="navigation__item">
+                            <NavLink to="/profile" className="navigation__link navigation__link_type_account" activeClassName={activeLink}>
+                              Аккаунт
+                            </NavLink>
+                          </div>
           </ul>
         </nav>
       )}

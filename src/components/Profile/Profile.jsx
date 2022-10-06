@@ -25,7 +25,8 @@ export default function Profile() {
               name="name"
               className={`profile__input ${errors.name && 'profile__input_error'}`}
               onChange={handleChange}
-              value={values.name || 'Никита'}
+              value={values.name || 'Артем'}
+              placeholder="pochta@yandex.ru"
               type="text"
               required
               minLength="2"
@@ -39,7 +40,8 @@ export default function Profile() {
               name="email"
               className={`profile__input ${errors.email && 'profile__input_error'}`}
               onChange={handleChange}
-              value={values.email || 'Nikkach1997@yandex.ru'}
+              value={values.email || 'basharinaa@mail.ru'}
+              placeholder="pochta@yandex.ru"
               type="email"
               required
             />

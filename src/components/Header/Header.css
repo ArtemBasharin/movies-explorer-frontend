@@ -5,7 +5,7 @@
 }
 
 .header_theme_dark {
-  background-color: #202020;
+  background-color: #fff;
 }
 
 .header_theme_light {
@@ -16,7 +16,8 @@
   max-width: 1280px;
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 44px;
   padding: 18px 70px;
   position: relative;
   box-sizing: border-box;
@@ -41,5 +42,6 @@
 @media screen and (max-width: 400px) {
   .header__container {
     padding: 18px 14px;
+    margin-top: 0px;
   }
 }

@@ -60,7 +60,7 @@
   font-size: 11px;
   line-height: 1.18;
   background-color: transparent;
-  color: #fff;
+  color: #000;
   text-align: right;
 }
 
@@ -100,7 +100,7 @@
   margin-top: auto;
   border: none;
   background-color: transparent;
-  color: #fff;
+  color: #000;
   font-weight: 400;
   font-size: 13px;
   line-height: 1.23;
@@ -113,7 +113,7 @@
 }
 
 .profile__button-edit_disabled {
-  color: #8b8b8b;
+  color: #000;
   cursor: default;
 }
 
@@ -128,7 +128,7 @@
   line-height: 1.23;
   background-color: transparent;
   color: #ee3465;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
 }
 
@@ -139,6 +139,7 @@
 @media screen and (max-width: 800px) {
   .profile {
     justify-content: center;
+    padding-top: 0;
   }
 
   .profile__form {
@@ -149,6 +150,7 @@
 
 @media screen and (max-width: 500px) {
   .profile {
+    min-height: 0;
     padding-top: 70px;
     justify-content: flex-start;
   }
@@ -172,5 +174,8 @@
 
   .profile__error-name {
     top: -28px;
+  }
+  .profile__labels-container {
+    min-height: 390px;
   }
 }

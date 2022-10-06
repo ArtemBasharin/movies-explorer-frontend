@@ -91,24 +91,19 @@
 
   .portfolio__link {
     font-size: 28px;
-    line-height: 1.79;
-  }
-
-  .portfolio__link::after {
-    width: 23px;
-    height: 17px;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .portfolio__link {
-    font-size: 18px;
     line-height: 1.56;
   }
 
   .portfolio__link::after {
     width: 21px;
     height: 11px;
+  }
+  .portfolio__item {
+    padding-bottom: 23px;
+  }
+
+  .portfolio__list {
+    gap: 23px;
   }
 }
 

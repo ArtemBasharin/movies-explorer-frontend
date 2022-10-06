@@ -12,7 +12,7 @@
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  margin: 0;
+  margin-top: -325px;
 }
 
 .notfound__error {
@@ -39,7 +39,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 60px;
+  bottom: 387px;
   transition: all 0.3s ease;
 }
 
@@ -54,6 +54,10 @@
 }
 
 @media screen and (max-width: 450px) {
+  .notfound {
+    justify-content: flex-start;
+    margin-top: 330px;
+  }
   .notfound__text-container {
     gap: 10px;
   }
@@ -68,8 +72,11 @@
   }
 
   .notfound__button {
+    position: initial;
     font-size: 12px;
     line-height: 1.25;
-    bottom: 30px;
+    transform: none;
+    margin-top: 272px;
+    /* bottom: 30px; */
   }
 }

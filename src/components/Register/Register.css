@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   padding: 70px 30px 59px;
   box-sizing: border-box;
@@ -53,7 +53,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 30px;
+  gap: 23px;
 }
 
 .register__label {
@@ -76,7 +76,7 @@
   padding: 6px 0;
   box-sizing: border-box;
   border-style: none;
-  border-bottom: 1px solid #424242;
+  border-bottom: 1px solid #e8e8e8;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
@@ -143,6 +143,12 @@
   left: 23%;
 }
 
+@media screen and (max-width: 768px) {
+  .register {
+    padding-top: 230px;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .register {
     padding-top: 56px;
@@ -158,18 +164,19 @@
 
   .register__labels-container {
     margin-top: 30px;
-    gap: 40px;
+    gap: 22px;
   }
 
   .register__button {
     font-size: 12px;
     line-height: 1.25;
+    margin-top: 195px;
   }
 
   .register__support {
     font-size: 12px;
     line-height: 1.25;
-    bottom: -6%;
+    bottom: 220px;
     left: 15%;
   }
 }
