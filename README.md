@@ -5,3 +5,4 @@
 Домен фронта [https://movex.nomoredomains.sbs](https://movex.nomoredomains.sbs)
 Домен бэка [https://api.movex.nomoredomains.sbs](https://api.movex.nomoredomains.sbs)
 IP сервера `51.250.10.237`
+Макет на [Figma](https://www.figma.com/proto/cASM20ikAsPlTi2doec68Q/Diploma?node-id=932%3A2618&scaling=min-zoom&page-id=891%3A3857)
