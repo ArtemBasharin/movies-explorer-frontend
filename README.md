@@ -1,8 +1,7 @@
 # Проект Movies-explorer (фронтенд)
 
-## *Ссылки:*
+## _Ссылки:_
 
 Домен фронта [https://movex.nomoredomains.sbs](https://movex.nomoredomains.sbs)
-Домен бэкенда [https://api.movex.nomoredomains.sbs](https://movex.nomoredomains.sbs)
-IP сервера `XXX.XXX.XXX.XXX`
-Ссылка на [макет]()
+Домен бэка [https://api.movex.nomoredomains.sbs](https://api.movex.nomoredomains.sbs)
+IP сервера `51.250.10.237`
