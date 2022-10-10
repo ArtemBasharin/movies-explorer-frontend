@@ -80,8 +80,8 @@
 
 @media screen and (max-width: 400px) {
   .burger-button {
-    top: 18px;
-    right: 19px;
+    top: 27px;
+    right: 24px;
     width: 22px;
   }
 }

@@ -41,6 +41,7 @@
 
 @media screen and (max-width: 400px) {
   .header__container {
+    max-width: 320px;
     padding: 18px 14px;
     margin-top: 0px;
   }

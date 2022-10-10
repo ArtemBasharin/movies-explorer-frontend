@@ -18,8 +18,6 @@ export default function SearchForm() {
         />
       <button className="search__button" type="submit"></button>
       </form>
-
-
       <FilterCheckbox />
     </section>
   );
