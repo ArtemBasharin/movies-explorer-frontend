@@ -1,6 +1,8 @@
 import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.jsx";
 import searchIcon from "../../images/search-icon.svg";
+import searchButton from "../../images/find-button.svg";
+
 
 export default function SearchForm() {
   return (
@@ -16,7 +18,9 @@ export default function SearchForm() {
           placeholder="Фильм"
           required
         />
-      <button className="search__button" type="submit"></button>
+      <button className="search__button" type="submit">
+        <img src={searchButton} alt="Поиск" />
+      </button>
       </form>
       <FilterCheckbox />
     </section>

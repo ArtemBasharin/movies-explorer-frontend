@@ -72,13 +72,17 @@
 }
 
 @media screen and (max-width: 583px) {
+  .movies-card-list {
+    padding-top: 52px;
+  }
+
   .movies-card-list__list {
     grid-auto-rows: 237px;
     row-gap: 14px;
   }
 
   .movies-card-list__show-more {
-    margin-top: 95px;
+    margin-top: 82px;
     width: 240px;
     height: 36px;
   }

@@ -35,6 +35,7 @@
   width: 100%;
   margin-top: 66px;
   gap: 50px;
+  flex-shrink: 1;
 }
 
 .aboutme__biography {
@@ -88,6 +89,7 @@
 
 .aboutme__avatar {
   width: 270px;
+  min-width: 270px;
   height: 327px;
   object-fit: cover;
   border-radius: 10px;
@@ -126,6 +128,7 @@
   }
 
   .aboutme__avatar {
+    min-width: 255px;
     width: 255px;
     height: 307px;
   }
@@ -144,6 +147,7 @@
   }
 
   .aboutme__avatar {
+    min-width: 292px;
     width: 292px;
   }
 }

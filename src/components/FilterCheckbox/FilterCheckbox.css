@@ -100,20 +100,20 @@
     line-height: 1.64;
   }
   .filter__checkbox::after {
-    right: 225px;
+    right: 156px;
     top: 70px;
   }
   .filter__tumbler {
-    left: -110px;
+    left: -40px;
     top: 72px;
   }
   .filter__checkbox:checked + .filter__tumbler {
-    left: -96px;
+    left: -25px;
   }
 
   .filter__text {
     position: relative;
     top: 70px;
-    right: 117px;
+    right: 42px;
   }
 }
