@@ -1,28 +1,52 @@
-import "./SearchForm.css";
-import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.jsx";
-import searchIcon from "../../images/search-icon.svg";
-import searchButton from "../../images/find-button.svg";
+import './SearchForm.css';
+import { useState, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox.jsx';
+import useFormWithValidation from '../../reacthooks/useFormWithValidation.jsx';
+import CurrentUserContext from '../../contexts/CurrentUserContext.jsx';
 
+export default function SearchForm({ handleSearchSubmit, handleShortFilms, shortMovies }) {
+  const currentUser = useContext(CurrentUserContext);
+  const location = useLocation();
+  const { values, handleChange, isValid, setIsValid } = useFormWithValidation();
 
-export default function SearchForm() {
+  const [errorQuery, setErrorQuery] = useState('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    isValid ? handleSearchSubmit(values.search) : setErrorQuery('Нужно ввести ключевое слово.');
+  };
+
+  useEffect(() => {
+    setErrorQuery('')
+  }, [isValid]);
+
+  //состояние инпута из локального хранилища
+  useEffect(() => {
+    if (location.pathname === '/movies' && localStorage.getItem(`${currentUser.email} - movieSearch`)) {
+      const searchValue = localStorage.getItem(`${currentUser.email} - movieSearch`);
+      values.search = searchValue;
+      setIsValid(true);
+    }
+  }, [currentUser]);
+
   return (
     <section className="search">
-      <div className="search__icon">
-       <img style={{width: "15px", height: "15px"}} src={searchIcon} alt="Поиск иконка" />
-      </div>
-      <form className="search__form" name="search">
+      <form className="search__form" name="search" noValidate onSubmit={handleSubmit}>
         <input
           className="search__input"
           name="search"
           type="text"
           placeholder="Фильм"
+          autoComplete="off"
+          value={values.search || ''}
+          onChange={handleChange}
           required
         />
-      <button className="search__button" type="submit">
-        <img src={searchButton} alt="Поиск" />
-      </button>
+        <span className="search__error">{errorQuery}</span>
+        <button className="search__button" type="submit"></button>
       </form>
-      <FilterCheckbox />
+      <FilterCheckbox shortMovies={shortMovies} handleShortFilms={handleShortFilms} />
     </section>
-  );
+  )
 }
