@@ -34,7 +34,7 @@
   margin-left: 17px;
   flex-grow: 1;
   border-right: 1px solid #e8e8e8;
-  margin-right: -105px;
+  margin-right: -60px;
   height: 40px;
 }
 
@@ -43,9 +43,9 @@
 }
 
 .search__button {
-  width: 34px;
+  width: 35px;
   height: 34px;
-  margin-right: 108px;
+  margin-right: 50px;
   background-image: url("../../images/find-button.svg");
   /* border-radius: 17px;
   border: none;
@@ -56,7 +56,7 @@
   transition: all 0.3s ease;
   padding: 0;
   z-index: 2;
-  /* background-color: transparent; */
+  background-color: transparent;
   border: none;
   position: relative;
   /* overflow: initial; */
