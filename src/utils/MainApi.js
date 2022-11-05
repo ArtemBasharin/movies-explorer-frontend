@@ -1,18 +1,15 @@
 import { API_URL } from "./consts.js";
 
-// класс для взаимодействия с сервером
 class Api {
   constructor({ apiUrl }) {
     this._apiUrl = apiUrl;
   }
 
-  // проверка статуса запроса
   async _requestResult(res) {
     const result = await res.json();
     return res.ok ? result : Promise.reject(result.message);
   }
 
-  // регистрация
   createUser(name, email, password) {
     return fetch(`${this._apiUrl}/signup`, {
       method: "POST",
@@ -25,7 +22,6 @@ class Api {
     }).then((res) => this._requestResult(res));
   }
 
-  // вход
   login(email, password) {
     return fetch(`${this._apiUrl}/signin`, {
       method: "POST",
@@ -34,7 +30,6 @@ class Api {
     }).then((res) => this._requestResult(res));
   }
 
-  // запрос данных пользователя
   getUserInfo() {
     return fetch(`${this._apiUrl}/users/me`, {
       headers: {
@@ -43,7 +38,6 @@ class Api {
     }).then((res) => this._requestResult(res));
   }
 
-  // запрос на редактирование данных пользователя
   updateUser(name, email) {
     return fetch(`${this._apiUrl}/users/me`, {
       method: "PATCH",
@@ -55,7 +49,6 @@ class Api {
     }).then((res) => this._requestResult(res));
   }
 
-  // запрос фильмов
   getSavedMovies() {
     return fetch(`${this._apiUrl}/movies`, {
       headers: {
@@ -64,7 +57,6 @@ class Api {
     }).then((res) => this._requestResult(res));
   }
 
-  // сохранение фильма
   addNewMovie(data) {
     return fetch(`${this._apiUrl}/movies`, {
       method: "POST",
@@ -88,7 +80,6 @@ class Api {
     }).then((res) => this._requestResult(res));
   }
 
-  // удаление фильма из сохранённых
   deleteMovie(data) {
     return fetch(`${this._apiUrl}/movies/${data}`, {
       method: "DELETE",
@@ -100,7 +91,6 @@ class Api {
 }
 
 const mainApi = new Api({
-  // создаём экземляр класса работающего с API сервера
   apiUrl: API_URL,
 });
 

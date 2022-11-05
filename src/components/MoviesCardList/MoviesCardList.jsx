@@ -1,25 +1,31 @@
-import './MoviesCardList.css';
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import useScreenWidth from '../../reacthooks/useScreenWidth.jsx';
-import { DEVICE_PARAMS } from '../../utils/consts.js';
-import { getSavedMovieCard } from '../../utils/utils.js';
-import MoviesCard from '../MoviesCard/MoviesCard.jsx';
+import "./MoviesCardList.css";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import useScreenWidth from "../../reacthooks/useScreenWidth.jsx";
+import { DEVICE_PARAMS } from "../../utils/consts.js";
+import { getSavedMovieCard } from "../../utils/utils.js";
+import MoviesCard from "../MoviesCard/MoviesCard.jsx";
 
-
-export default function MoviesCardList({ moviesList, savedMoviesList, onLikeClick, onDeleteClick }) {
+export default function MoviesCardList({
+  moviesList,
+  savedMoviesList,
+  onLikeClick,
+  onDeleteClick,
+}) {
   const screenWidth = useScreenWidth();
 
   const { desktop, tablet, mobile } = DEVICE_PARAMS;
   const [isMount, setIsMount] = useState(true);
   const [showMovieList, setShowMovieList] = useState([]);
-  const [cardsShowDetails, setCardsShowDetails] = useState({ total: 12, more: 3 });
+  const [cardsShowDetails, setCardsShowDetails] = useState({
+    total: 12,
+    more: 3,
+  });
 
   const location = useLocation();
 
-  // количество отображаемых карточек при разной ширине экрана
   useEffect(() => {
-    if (location.pathname === '/movies') {
+    if (location.pathname === "/movies") {
       if (screenWidth > desktop.width) {
         setCardsShowDetails(desktop.cards);
       } else if (screenWidth <= desktop.width && screenWidth > mobile.width) {
@@ -31,7 +37,6 @@ export default function MoviesCardList({ moviesList, savedMoviesList, onLikeClic
     }
   }, [screenWidth, isMount, desktop, tablet, mobile, location.pathname]);
 
-  // изменяем отображаемый массив фильмов в зависимости от ширины экрана
   useEffect(() => {
     if (moviesList.length) {
       const res = moviesList.filter((item, i) => i < cardsShowDetails.total);
@@ -39,7 +44,6 @@ export default function MoviesCardList({ moviesList, savedMoviesList, onLikeClic
     }
   }, [moviesList, cardsShowDetails.total]);
 
-  // добавление карточек при клике по кнопке "Еще"
   function handleClickMoreMovies() {
     const start = showMovieList.length;
     const end = start + cardsShowDetails.more;
@@ -54,7 +58,7 @@ export default function MoviesCardList({ moviesList, savedMoviesList, onLikeClic
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__list">
-        {showMovieList.map(movie => (
+        {showMovieList.map((movie) => (
           <MoviesCard
             key={movie.id || movie._id}
             saved={getSavedMovieCard(savedMoviesList, movie)}
@@ -64,14 +68,16 @@ export default function MoviesCardList({ moviesList, savedMoviesList, onLikeClic
           />
         ))}
       </ul>
-      {location.pathname === '/movies' && showMovieList.length >= 5 && showMovieList.length < moviesList.length && (
-        <button
-          className="movies-card-list__show-more"
-          onClick={handleClickMoreMovies}
-        >
-          Ещё
-        </button>
-      )}
+      {location.pathname === "/movies" &&
+        showMovieList.length >= 5 &&
+        showMovieList.length < moviesList.length && (
+          <button
+            className="movies-card-list__show-more"
+            onClick={handleClickMoreMovies}
+          >
+            Ещё
+          </button>
+        )}
     </section>
   );
 }

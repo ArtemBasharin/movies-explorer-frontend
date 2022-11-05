@@ -1,6 +1,5 @@
 import { SHORTMOVIES_DURATION } from "./consts.js";
 
-// проверка изображений полученных от сервера
 function transformMovies(movies) {
   movies.forEach((movie) => {
     if (!movie.image) {
@@ -20,12 +19,10 @@ function transformMovies(movies) {
   return movies;
 }
 
-// фильтрация по длительности
 function filterShortMovies(movies) {
   return movies.filter((movie) => movie.duration < SHORTMOVIES_DURATION);
 }
 
-// фильтрация по запросу
 function filterMovies(movies, userQuery, shortMoviesCheckbox) {
   const moviesByUserQuery = movies.filter((movie) => {
     const movieRu = String(movie.nameRU).toLowerCase().trim();
@@ -43,7 +40,6 @@ function filterMovies(movies, userQuery, shortMoviesCheckbox) {
   }
 }
 
-// преобразование длительности
 function transformDuration(duration) {
   const hours = Math.trunc(duration / 60);
   const minutes = duration % 60;
@@ -54,7 +50,6 @@ function transformDuration(duration) {
   }
 }
 
-// cравнение сохраненных фильмов
 function getSavedMovieCard(arr, movie) {
   return arr.find((item) => {
     return item.movieId === (movie.id || movie.movieId);

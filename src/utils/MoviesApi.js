@@ -5,13 +5,11 @@ class MoviesApi {
     this._baseUrl = baseUrl;
   }
 
-  // проверка статуса запроса
   async _requestResult(res) {
     const result = await res.json();
     return res.ok ? result : Promise.reject(res);
   }
 
-  // регистрация
   getMovies() {
     return fetch(`${this._baseUrl}`, {
       method: "GET",

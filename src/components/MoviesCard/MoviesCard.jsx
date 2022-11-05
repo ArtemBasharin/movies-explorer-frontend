@@ -1,16 +1,19 @@
-import './MoviesCard.css';
-import { useLocation } from 'react-router-dom';
-import { transformDuration } from '../../utils/utils.js';
+import "./MoviesCard.css";
+import { useLocation } from "react-router-dom";
+import { transformDuration } from "../../utils/utils.js";
 
-export default function MoviesCard({ movie, saved, onLikeClick, onDeleteClick }) {
+export default function MoviesCard({
+  movie,
+  saved,
+  onLikeClick,
+  onDeleteClick,
+}) {
   const location = useLocation();
 
-  // сохранение фильма
   function handleLikeClick() {
     onLikeClick(movie);
   }
 
-  // удаление фильма
   function handleDeleteClick() {
     onDeleteClick(movie);
   }
@@ -28,22 +31,22 @@ export default function MoviesCard({ movie, saved, onLikeClick, onDeleteClick })
         </a>
         <div className="movies-card__description">
           <h2 className="movies-card__title">{movie.nameRU}</h2>
-          {location.pathname === '/movies' && (
+          {location.pathname === "/movies" && (
             <button
               type="button"
               className={`movies-card__button movies-card__button_type_${
-                saved ? 'saved' : 'save'
+                saved ? "saved" : "save"
               }`}
               onClick={saved ? handleDeleteClick : handleLikeClick}
               aria-label={`${
-                saved ? 'Удалить фильм из сохранённых' : 'Сохранить фильм'
+                saved ? "Удалить фильм из сохранённых" : "Сохранить фильм"
               }`}
               title={`${
-                saved ? 'Удалить фильм из сохранённых' : 'Сохранить фильм'
+                saved ? "Удалить фильм из сохранённых" : "Сохранить фильм"
               }`}
             ></button>
           )}
-          {location.pathname === '/saved-movies' && (
+          {location.pathname === "/saved-movies" && (
             <button
               type="button"
               className="movies-card__button movies-card__button_type_unsave"

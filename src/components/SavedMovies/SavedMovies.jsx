@@ -1,22 +1,22 @@
-import './SavedMovies.css';
-import { useState, useContext, useEffect } from 'react';
-import {
-  filterMovies, // фильтрация начального массива всех фильмов по запросу
-  filterShortMovies, // фильтрация по длительности
-} from '../../utils/utils.js';
-import SearchForm from '../SearchForm/SearchForm.jsx';
-import MoviesCardList from '../MoviesCardList/MoviesCardList.jsx';
-import CurrentUserContext from '../../contexts/CurrentUserContext.jsx';
+import "./SavedMovies.css";
+import { useState, useContext, useEffect } from "react";
+import { filterMovies, filterShortMovies } from "../../utils/utils.js";
+import SearchForm from "../SearchForm/SearchForm.jsx";
+import MoviesCardList from "../MoviesCardList/MoviesCardList.jsx";
+import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
 
-export default function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip }) {
+export default function SavedMovies({
+  onDeleteClick,
+  savedMoviesList,
+  setIsInfoTooltip,
+}) {
   const currentUser = useContext(CurrentUserContext);
 
-  const [shortMovies, setShortMovies] = useState(false); // состояние чекбокса
-  const [NotFound, setNotFound] = useState(false); // если по запросу ничего не найдено - скроем фильмы
-  const [showedMovies, setShowedMovies] = useState(savedMoviesList); // показываемывые фильмы
-  const [filteredMovies, setFilteredMovies] = useState(showedMovies); // отфильтрованные по запросу фильмы
+  const [shortMovies, setShortMovies] = useState(false);
+  const [NotFound, setNotFound] = useState(false);
+  const [showedMovies, setShowedMovies] = useState(savedMoviesList);
+  const [filteredMovies, setFilteredMovies] = useState(showedMovies);
 
-  // поиск по запросу
   function handleSearchSubmit(inputValue) {
     const moviesList = filterMovies(savedMoviesList, inputValue, shortMovies);
     if (moviesList.length === 0) {
@@ -24,7 +24,7 @@ export default function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoT
       setIsInfoTooltip({
         isOpen: true,
         successful: false,
-        text: 'Ничего не найдено.',
+        text: "Ничего не найдено.",
       });
     } else {
       setNotFound(false);
@@ -33,13 +33,14 @@ export default function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoT
     }
   }
 
-  // состояние чекбокса
   function handleShortFilms() {
     if (!shortMovies) {
       setShortMovies(true);
       localStorage.setItem(`${currentUser.email} - shortSavedMovies`, true);
       setShowedMovies(filterShortMovies(filteredMovies));
-      filterShortMovies(filteredMovies).length === 0 ? setNotFound(true) : setNotFound(false);
+      filterShortMovies(filteredMovies).length === 0
+        ? setNotFound(true)
+        : setNotFound(false);
     } else {
       setShortMovies(false);
       localStorage.setItem(`${currentUser.email} - shortSavedMovies`, false);
@@ -48,9 +49,10 @@ export default function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoT
     }
   }
 
-  // проверка чекбокса в локальном хранилище
   useEffect(() => {
-    if (localStorage.getItem(`${currentUser.email} - shortSavedMovies`) === 'true') {
+    if (
+      localStorage.getItem(`${currentUser.email} - shortSavedMovies`) === "true"
+    ) {
       setShortMovies(true);
       setShowedMovies(filterShortMovies(savedMoviesList));
     } else {
