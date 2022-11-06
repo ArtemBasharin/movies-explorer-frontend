@@ -2,7 +2,7 @@
 
 ## _Ссылки:_
 
-- Домен фронта [https://movex.nomoredomains.sbs](http://movex.nomoredomains.sbs)
+- Домен фронта [https://movex.nomoredomains.sbs](https://movex.nomoredomains.sbs)
 - Локальный домен фронта для разработки и код-ревью [http://localhost:3000/](http://localhost:3000/)
 - Домен бэка [https://api.movex.nomoredomains.sbs](https://api.movex.nomoredomains.sbs)
 - IP сервера `51.250.10.237`
