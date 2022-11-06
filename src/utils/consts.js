@@ -1,4 +1,4 @@
-const API_URL = "http://api.movex.nomoredomains.sbs";
+const API_URL = "https://api.movex.nomoredomains.sbs";
 // const API_URL = "http://localhost:3000";
 const MOVIES_URL = "https://api.nomoreparties.co/beatfilm-movies";
 const SHORTMOVIES_DURATION = 40;
