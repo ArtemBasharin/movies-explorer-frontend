@@ -3,9 +3,7 @@
   align-items: center;
   cursor: pointer;
   position: relative;
-  /* width: 174px; */
   height: 20px;
-  /* margin-top: 29px; */
   transition: all 0.3s ease;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   justify-items: flex-end;

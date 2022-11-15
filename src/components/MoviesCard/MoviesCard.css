@@ -23,7 +23,6 @@
 .movies-card__item {
   display: flex;
   flex-direction: column;
-  /* gap: 2px; */
 }
 
 .movies-card__poster {
@@ -88,11 +87,11 @@
 
 .movies-card__button_type_unsave {
   background-image: url("../../images/delete-card.svg");
-  opacity: 0;
+  opacity: 1;
 }
 
 .movies-card:hover .movies-card__button_type_unsave {
-  opacity: 1;
+  opacity: 0.8;
 }
 
 .movies-card:hover .movies-card__button_type_unsave:hover {
