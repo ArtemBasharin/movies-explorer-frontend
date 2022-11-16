@@ -1,6 +1,6 @@
 import './Profile.css';
 import { useEffect } from 'react';
-import useFormWithValidation from '../../reacthooks/useFormWithValidation.jsx';
+import useFormWithValidation from '../../hooks/useFormWithValidation.jsx';
 
 export default function Profile() {
   const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
