@@ -24,13 +24,12 @@
 }
 
 .header__link {
-  transition: all 0.3s ease;
+  transition: transform 200ms ease-in-out;
   height: 38px;
 }
 
 .header__link:hover {
-  transform: rotate(45deg);
-  opacity: 0.7;
+  transform: scale(0.8);
 }
 
 @media screen and (max-width: 800px) {
