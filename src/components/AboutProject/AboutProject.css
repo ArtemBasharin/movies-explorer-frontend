@@ -9,7 +9,7 @@
 .project-about__container {
   max-width: 1280px;
   width: 100%;
-  padding: 110px 70px;
+  padding: 87px 70px 110px;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
@@ -24,6 +24,7 @@
   line-height: 26.63px;
   letter-spacing: -0.04em;
   border-bottom: 1px solid #000;
+  padding-top: 23px;
   padding-bottom: 23px;
   width: 100%;
 }
@@ -110,7 +111,7 @@
 
 @media screen and (max-width: 800px) {
   .project-about__container {
-    padding: 90px 50px;
+    padding: 67px 50px 90px;
   }
 
   .project-about__def-description {
@@ -139,13 +140,14 @@
 
 @media screen and (max-width: 400px) {
   .project-about__container {
-    padding: 71px 18px;
+    padding: 43px 18px 71px;
   }
-
+/*  */
   .project-about__title {
     font-size: 18px;
     line-height: 1.22;
     letter-spacing: -0.04em;
+    padding-top: 28px;
     padding-bottom: 28px;
   }
 
