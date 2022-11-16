@@ -14,24 +14,30 @@ class Api {
     const jwt = localStorage.getItem("jwt")
 
     return jwt === null ? {} : {
-      ...this.getAuthHeader(),
+      Authorization: `Bearer ${jwt}`,
     }
   }
 
   makeRequest(path, options) {
-    const body = options.body ? undefined : JSON.stringify(options.body)
-    const method = options.method || "GET"
-
-    const headers = {
-      ...options.headers,
-      ...this.getAuthHeader(),
+    let requestParams = {
+      headers: {
+        ...this.getAuthHeader(),
+      }
     }
 
-    const requestParams = {
-      ...options,
-      method,
-      headers,
-      body,
+    if (options) {
+      requestParams = {
+        ...options,
+      }
+
+      if (options.body) requestParams.body = JSON.stringify(options.body)
+
+      if (options.headers) {
+        requestParams.headers = {
+          ...requestParams.headers,
+          ...options.headers,
+        }
+      }
     }
 
     return fetch(path, requestParams).then((res) => this._requestResult(res));
