@@ -84,7 +84,6 @@
   background-color: #f9f9f9;
   width: 100px;
   height: 32px;
-  position: absolute;
   top: 3px;
   right: 0;
   font-weight: 500;
@@ -131,9 +130,7 @@
   }
 
   .navigation__link_type_account {
-    margin-top: 485px;
     z-index: 1;
-    position: relative;
     align-self: flex-end;
     width: 100px;
     height: 32px;
@@ -202,8 +199,5 @@
 
   .navigation__item:last-child {
     margin-bottom: 46px;
-  }
-  .navigation__link_type_account {
-    margin-top: 345px;
   }
 }
