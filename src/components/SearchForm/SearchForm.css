@@ -52,6 +52,7 @@
   background-color: transparent;
   border: none;
   position: relative;
+  flex-shrink: 0;
 }
 
 .search__button:hover {
