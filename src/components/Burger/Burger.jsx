@@ -11,10 +11,10 @@ export default function Burger({isBurgerOpened, onClickBurger}) {
   }
 
   useEffect(() => {
-    if (!isMobile) {
-      onClickBurger(true);
+    if (!isMobile && isBurgerOpened) {
+      onClickBurger();
     }
-  }, [isMobile, onClickBurger]);
+  }, [isBurgerOpened, isMobile, onClickBurger]);
 
   return (
     <button type="button" className={`burger-button burger-button_${isBurgerOpened ? 'on': 'off'}`} onClick={handleOnClickBurger}>
