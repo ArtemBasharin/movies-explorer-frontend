@@ -26,8 +26,8 @@ import InfoTooltipContext from "../../contexts/InfoTooltipContext";
 import SavedMoviesContext from "../../contexts/SavedMoviesContext";
 
 function App() {
-  console.log('App rerendered')
   const history = useHistory();
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -74,8 +74,6 @@ function App() {
   }
 
   useEffect(() => {
-    setIsLoaderVisible(true)
-
     const jwt = localStorage.getItem("jwt");
 
     if (jwt) {
@@ -92,10 +90,8 @@ function App() {
           })
         )
         .finally(() => {
-          setIsLoaderVisible(false);
+          setIsAuthChecking(false);
         });
-    } else {
-      setIsLoaderVisible(false);
     }
   }, []);
 
@@ -124,49 +120,53 @@ function App() {
         <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
           <SavedMoviesContext.Provider value={{ savedMovies, setSavedMovies }}>
             <div className="app">
-              <Loader />
-              <InfoTooltip />
+              {isAuthChecking ? <Loader /> : (
+                <>
+                  <Loader />
+                  <InfoTooltip />
 
-              <Route exact path={headerEndpoints}>
-                <Header />
-              </Route>
+                  <Route exact path={headerEndpoints}>
+                    <Header />
+                  </Route>
 
-              <Switch>
-                <Route exact path="/">
-                  <Main />
-                </Route>
+                  <Switch>
+                    <Route exact path="/">
+                      <Main />
+                    </Route>
 
-                <Route exact path="/signup">
-                  {currentUser ? <Redirect to="/" /> : <Register handleLogin={handleLogin} />}
-                </Route>
+                    <Route exact path="/signup">
+                      {currentUser ? <Redirect to="/" /> : <Register handleLogin={handleLogin} />}
+                    </Route>
 
-                <Route exact path="/signin">
-                  {currentUser ? <Redirect to="/" /> : <Login handleLogin={handleLogin} />}
-                </Route>
+                    <Route exact path="/signin">
+                      {currentUser ? <Redirect to="/" /> : <Login handleLogin={handleLogin} />}
+                    </Route>
 
-                <ProtectedRoute
-                  path="/movies"
-                  component={Movies}
-                />
+                    <ProtectedRoute
+                      path="/movies"
+                      component={Movies}
+                    />
 
-                <ProtectedRoute
-                  path="/saved-movies"
-                  component={SavedMovies}
-                />
+                    <ProtectedRoute
+                      path="/saved-movies"
+                      component={SavedMovies}
+                    />
 
-                <ProtectedRoute
-                  path="/profile"
-                  component={Profile}
-                />
+                    <ProtectedRoute
+                      path="/profile"
+                      component={Profile}
+                    />
 
-                <Route path="*">
-                  <NotFound />
-                </Route>
-              </Switch>
+                    <Route path="*">
+                      <NotFound />
+                    </Route>
+                  </Switch>
 
-              <Route exact path={footerEndpoints}>
-                <Footer />
-              </Route>
+                  <Route exact path={footerEndpoints}>
+                    <Footer />
+                  </Route>
+                </>
+              )}
             </div>
           </SavedMoviesContext.Provider>
         </CurrentUserContext.Provider>
