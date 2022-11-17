@@ -1,5 +1,7 @@
 import "./Footer.css";
 
+export const footerEndpoints = ["/movies", "/saved-movies", "/"];
+
 export default function Footer() {
   return (
     <footer className="footer">
