@@ -2,13 +2,6 @@
   display: flex;
   width: 100%;
   justify-content: space-around;
-}
-
-.header_theme_dark {
-  background-color: #fff;
-}
-
-.header_theme_light {
   background-color: #fff;
 }
 
