@@ -8,8 +8,8 @@ function setMoviesDefaults(movies) {
       movie.image = "https://unsplash.com/photos/sKOTAa1_VRQ";
       movie.thumbnail = "https://unsplash.com/photos/sKOTAa1_VRQ";
     } else {
-      movie.image = `https://api.nomoreparties.co${movie.image.url}`;
       movie.thumbnail = `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
+      movie.image = `https://api.nomoreparties.co${movie.image.url}`;
     }
 
     if (!movie.country) movie.country = "Russia";
@@ -27,16 +27,10 @@ function filterMovies(movies, userQuery, shortMoviesCheckbox) {
     const movieEn = String(movie.nameEN).toLowerCase().trim();
     const userMovie = userQuery.toLowerCase().trim();
 
-    return (
-      movieRu.indexOf(userMovie) !== -1 || movieEn.indexOf(userMovie) !== -1
-    );
-  });
+    return movieRu.indexOf(userMovie) > -1 || movieEn.indexOf(userMovie) > -1
+  })
 
-  if (shortMoviesCheckbox) {
-    return filterShortMovies(moviesByUserQuery);
-  } else {
-    return moviesByUserQuery;
-  }
+  return shortMoviesCheckbox ? filterShortMovies(moviesByUserQuery) : moviesByUserQuery
 }
 
 function getHumanizedDuration(duration) {

@@ -22,6 +22,7 @@ import Popup from "../Popup/Popup";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import moviesApi from "../../api/MoviesApi";
 import { JWT_LS_KEY } from "../../utils/constants";
+import { setMoviesDefaults } from "../../utils";
 
 function App() {
   const history = useHistory();
@@ -104,7 +105,7 @@ function App() {
         moviesApi.getMovies(),
         mainApi.getSavedMovies(),
       ]).then(([allMovies, userSavedMovies]) => {
-        setMovies(allMovies)
+        setMovies(setMoviesDefaults(allMovies))
         setSavedMovies(userSavedMovies)
       }).catch(err => {
         setPopup({
