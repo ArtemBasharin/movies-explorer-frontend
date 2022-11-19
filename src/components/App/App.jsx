@@ -1,7 +1,7 @@
 import "./App.css";
 import mainApi from "../../api/MainApi.js";
-import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
-import LoaderContext from "../../contexts/LoaderContext.jsx";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import LoaderContext from "../../contexts/LoaderContext";
 
 import { useState, useEffect } from "react";
 import {
@@ -11,17 +11,17 @@ import {
   useHistory,
 } from "react-router-dom";
 import Header, { headerEndpoints } from "../Header/Header";
-import Main from "../Main/Main.jsx";
-import Footer, { footerEndpoints } from "../Footer/Footer.jsx";
-import Movies from "../Movies/Movies.jsx";
-import SavedMovies from "../SavedMovies/SavedMovies.jsx";
-import Register from "../Register/Register.jsx";
-import Login from "../Login/Login.jsx";
-import Profile from "../Profile/Profile.jsx";
-import NotFound from "../NotFound/NotFound.jsx";
-import Loader from "../Loader/Loader.jsx";
-import Popup from "../Popup/Popup.jsx";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
+import Main from "../Main/Main";
+import Footer, { footerEndpoints } from "../Footer/Footer";
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
+import Profile from "../Profile/Profile";
+import NotFound from "../NotFound/NotFound";
+import Loader from "../Loader/Loader";
+import Popup from "../Popup/Popup";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import PopupContext from "../../contexts/PopupContext";
 import SavedMoviesContext from "../../contexts/SavedMoviesContext";
 
