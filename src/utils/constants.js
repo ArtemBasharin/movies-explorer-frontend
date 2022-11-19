@@ -1,4 +1,5 @@
 const SHORT_MOVIES_DURATION = 40;
+export const JWT_LS_KEY = 'jwt'
 
 const DEVICE_PARAMS = {
   desktop: {

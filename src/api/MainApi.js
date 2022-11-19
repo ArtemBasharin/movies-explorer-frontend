@@ -1,3 +1,5 @@
+import { JWT_LS_KEY } from "../utils/constants";
+
 export const API_URL = "https://api.movex.nomoredomains.sbs";
 
 class Api {
@@ -11,7 +13,7 @@ class Api {
   }
 
   getAuthHeader() {
-    const jwt = localStorage.getItem("jwt")
+    const jwt = localStorage.getItem(JWT_LS_KEY)
 
     return jwt === null ? {} : {
       Authorization: `Bearer ${jwt}`,

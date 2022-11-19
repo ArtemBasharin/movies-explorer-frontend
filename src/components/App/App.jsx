@@ -21,6 +21,7 @@ import Loader from "../Loader/Loader";
 import Popup from "../Popup/Popup";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import moviesApi from "../../api/MoviesApi";
+import { JWT_LS_KEY } from "../../utils/constants";
 
 function App() {
   const history = useHistory();
@@ -42,7 +43,7 @@ function App() {
     mainApi
       .login(email, password)
       .then(({ token }) => {
-        localStorage.setItem("jwt", token);
+        localStorage.setItem(JWT_LS_KEY, token);
 
         mainApi
           .getUserInfo()
@@ -72,7 +73,7 @@ function App() {
   }
 
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem(JWT_LS_KEY);
 
     if (jwt) {
       mainApi
