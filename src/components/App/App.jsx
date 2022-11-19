@@ -20,9 +20,9 @@ import Login from "../Login/Login.jsx";
 import Profile from "../Profile/Profile.jsx";
 import NotFound from "../NotFound/NotFound.jsx";
 import Loader from "../Loader/Loader.jsx";
-import InfoTooltip from "../InfoTooltip/InfoTooltip.jsx";
+import Popup from "../Popup/Popup.jsx";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
-import InfoTooltipContext from "../../contexts/InfoTooltipContext";
+import PopupContext from "../../contexts/PopupContext";
 import SavedMoviesContext from "../../contexts/SavedMoviesContext";
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [savedMovies, setSavedMovies] = useState([]);
 
-  const [infoTooltip, setInfoTooltip] = useState({
+  const [popup, setPopup] = useState({
     isOpen: false,
     successful: true,
     text: "",
@@ -52,7 +52,7 @@ function App() {
             setCurrentUser(res)
             history.push("/movies")
 
-            setInfoTooltip({
+            setPopup({
               isOpen: true,
               successful: true,
               text: "Добро пожаловать!",
@@ -63,7 +63,7 @@ function App() {
           .catch(err => { throw err })
       })
       .catch((err) => {
-        setInfoTooltip({
+        setPopup({
           isOpen: true,
           successful: false,
           text: err,
@@ -83,7 +83,7 @@ function App() {
           setCurrentUser(user);
         })
         .catch((err) =>
-          setInfoTooltip({
+          setPopup({
             isOpen: true,
             successful: false,
             text: err,
@@ -107,7 +107,7 @@ function App() {
           setSavedMovies(data.filter(m => m.owner === currentUser._id));
         })
         .catch(err => {
-          setInfoTooltip({
+          setPopup({
             isOpen: true,
             successful: false,
             text: err,
@@ -118,14 +118,14 @@ function App() {
 
   return (
     <LoaderContext.Provider value={{ isLoaderVisible, setIsLoaderVisible }}>
-      <InfoTooltipContext.Provider value={{ infoTooltip, setInfoTooltip }}>
+      <PopupContext.Provider value={{ popup, setPopup }}>
         <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
           <SavedMoviesContext.Provider value={{ savedMovies, setSavedMovies }}>
             <div className="app">
               {isAuthChecking ? <Loader /> : (
                 <>
                   {isLoaderVisible && <Loader />}
-                  <InfoTooltip />
+                  <Popup />
 
                   <Route exact path={headerEndpoints}>
                     <Header />
@@ -172,7 +172,7 @@ function App() {
             </div>
           </SavedMoviesContext.Provider>
         </CurrentUserContext.Provider>
-      </InfoTooltipContext.Provider>
+      </PopupContext.Provider>
     </LoaderContext.Provider>
   );
 }
