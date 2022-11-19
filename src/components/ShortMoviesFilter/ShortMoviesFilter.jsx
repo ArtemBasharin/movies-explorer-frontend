@@ -6,8 +6,10 @@ export default function ShortMoviesFilter({ shortMoviesMode, onFilterChange }) {
       <input
         className="filter__checkbox"
         type="checkbox"
-        onChange={onFilterChange}
-        checked={shortMoviesMode ? true : false}
+        onChange={({ target }) => {
+          onFilterChange(target.checked)
+        }}
+        checked={shortMoviesMode}
       />
       <span className="filter__tumbler"/>
       <span className="filter__text">Короткометражки</span>
