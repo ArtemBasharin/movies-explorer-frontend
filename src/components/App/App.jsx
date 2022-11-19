@@ -92,6 +92,8 @@ function App() {
         .finally(() => {
           setIsAuthChecking(false);
         });
+    } else {
+      setIsAuthChecking(false);
     }
   }, []);
 
@@ -122,7 +124,7 @@ function App() {
             <div className="app">
               {isAuthChecking ? <Loader /> : (
                 <>
-                  <Loader />
+                  {isLoaderVisible && <Loader />}
                   <InfoTooltip />
 
                   <Route exact path={headerEndpoints}>
