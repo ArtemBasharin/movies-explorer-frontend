@@ -26,6 +26,7 @@ import { setMoviesDefaults } from "../../utils";
 function App() {
   const history = useHistory();
   const [isAuthChecking, setIsAuthChecking] = useState(true);
+  const [gettingInitials, setGettingInitials] = useState(true);
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [movies, setMovies] = useState([]);
@@ -81,25 +82,26 @@ function App() {
         .then(user => {
           setCurrentUser(user);
         })
-        .catch((err) =>
+        .catch((err) => {
           setPopup({
             isOpen: true,
             successful: false,
             text: err,
           })
-        )
+
+          setGettingInitials(false);
+        })
         .finally(() => {
           setIsAuthChecking(false);
         });
     } else {
       setIsAuthChecking(false);
+      setGettingInitials(false);
     }
   }, []);
 
   useEffect(() => {
     if (currentUser) {
-      setIsLoaderVisible(true)
-
       Promise.all([
         moviesApi.getMovies(),
         mainApi.getSavedMovies(),
@@ -112,7 +114,7 @@ function App() {
           successful: false,
           text: err,
         })
-      }).finally(() => setIsLoaderVisible(false));
+      }).finally(() => setGettingInitials(false));
     }
   }, [currentUser]);
 
@@ -123,7 +125,7 @@ function App() {
           <MoviesContext.Provider value={{ movies }}>
             <SavedMoviesContext.Provider value={{ savedMovies, setSavedMovies }}>
               <div className="app">
-                {isAuthChecking ? <Loader /> : (
+                {(isAuthChecking || gettingInitials) ? <Loader /> : (
                   <>
                     {isLoaderVisible && <Loader />}
                     <Popup />

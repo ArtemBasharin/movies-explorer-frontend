@@ -50,11 +50,20 @@ export default function Movies() {
   }, [isSavedMoviesPage, movies, savedMovies, setPopup])
 
   useEffect(() => {
-    if (movies.length > 0) {
+    if (movies.length === 0) return
+
+    if (isSavedMoviesPage || userQuery.length > 0) {
       handleSetFilteredMovies(userQuery, shortMoviesMode)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, movies.length])
+
+  useEffect(() => {
+    if (isSavedMoviesPage && filteredMovies.length > savedMovies.length) {
+      handleSetFilteredMovies(userQuery, shortMoviesMode)
+    }
+  }, [filteredMovies.length, handleSetFilteredMovies, isSavedMoviesPage, savedMovies.length, shortMoviesMode, userQuery])
+
 
   function handleSearchSubmit(newSearchQuery) {
     setUserQuery(newSearchQuery)

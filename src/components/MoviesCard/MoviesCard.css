@@ -18,6 +18,7 @@
   box-sizing: border-box;
   background-color: #fff;
   overflow: hidden;
+  width: 100%;
 }
 
 .movies-card__item {
@@ -47,7 +48,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 265px;
+  max-width: 290px;
   letter-spacing: 0.08rem;
 }
 

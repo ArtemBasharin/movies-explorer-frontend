@@ -13,7 +13,7 @@ export default function MoviesCards({
   isSavedMoviesPage,
 }) {
   const screenWidth = useScreenWidth();
-  const [showMovieList, setShowMovieList] = useState([]);
+  const [showMovieList, setShowMovieList] = useState(movies);
   const [cardsShowDetails, setCardsShowDetails] = useState({ total: 12, more: 3 });
   const { savedMovies } = useContext(SavedMoviesContext)
 
