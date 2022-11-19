@@ -2,8 +2,8 @@ import "./MoviesCards.css";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useScreenWidth from "../../hooks/useScreenWidth.jsx";
-import { DEVICE_PARAMS } from "../../utils/consts.js";
-import { getSavedMovieCard } from "../../utils/utils.js";
+import { DEVICE_PARAMS } from "../../utils/constants.js";
+import { getSavedMovieCard } from "../../utils";
 import MoviesCard from "../MoviesCard/MoviesCard.jsx";
 
 export default function MoviesCards({

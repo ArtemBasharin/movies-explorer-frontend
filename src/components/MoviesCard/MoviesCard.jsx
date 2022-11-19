@@ -1,6 +1,6 @@
 import "./MoviesCard.css";
 import { useLocation } from "react-router-dom";
-import { getHumanizedDuration } from "../../utils/utils.js";
+import { getHumanizedDuration } from "../../utils";
 import mainApi from "../../api/MainApi";
 import { useContext } from "react";
 import PopupContext from "../../contexts/PopupContext";
