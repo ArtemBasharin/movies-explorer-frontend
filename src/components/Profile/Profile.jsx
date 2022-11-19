@@ -1,11 +1,9 @@
 import "./Profile.css";
 import { useEffect, useContext } from "react";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 import mainApi from "../../api/MainApi";
-import LoaderContext from "../../contexts/LoaderContext";
-import PopupContext from "../../contexts/PopupContext";
 import { useHistory } from "react-router-dom";
+import { CurrentUserContext, LoaderContext, PopupContext } from "../../contexts";
 
 export default function Profile() {
   const history = useHistory();

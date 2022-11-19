@@ -3,8 +3,7 @@ import { useLocation } from "react-router-dom";
 import { getHumanizedDuration } from "../../utils";
 import mainApi from "../../api/MainApi";
 import { useContext } from "react";
-import PopupContext from "../../contexts/PopupContext";
-import SavedMoviesContext from "../../contexts/SavedMoviesContext";
+import { PopupContext, SavedMoviesContext } from "../../contexts";
 
 export default function MoviesCard({
   movie,

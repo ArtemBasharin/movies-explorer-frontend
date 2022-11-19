@@ -1,6 +1,6 @@
 import './Popup.css';
 import useEscapePress from '../../hooks/useEscapePress';
-import PopupContext from '../../contexts/PopupContext';
+import { PopupContext } from '../../contexts';
 import { useContext } from 'react';
 
 export default function Popup() {

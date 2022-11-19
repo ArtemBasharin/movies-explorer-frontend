@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import Burger from "../Burger/Burger";
 import { useContext, useState } from "react";
 import useEscapePress from "../../hooks/useEscapePress";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { CurrentUserContext } from "../../contexts";
 
 const NavigationItem = ({
   to,

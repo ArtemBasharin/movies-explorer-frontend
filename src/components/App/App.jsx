@@ -1,8 +1,6 @@
 import "./App.css";
 import mainApi from "../../api/MainApi.js";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
-import LoaderContext from "../../contexts/LoaderContext";
-
+import { CurrentUserContext, LoaderContext, MoviesContext, PopupContext, SavedMoviesContext } from "../../contexts";
 import { useState, useEffect } from "react";
 import {
   Route,
