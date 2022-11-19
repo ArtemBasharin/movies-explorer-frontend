@@ -13,7 +13,7 @@ export default function Profile() {
   const { setPopup } = useContext(PopupContext)
 
   function handleSignOut() {
-    setCurrentUser({});
+    setCurrentUser(null);
     localStorage.clear();
     history.push("/");
   }

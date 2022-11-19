@@ -30,6 +30,7 @@ class Api {
     if (options) {
       requestParams = {
         ...options,
+        ...requestParams,
       }
 
       if (options.body) requestParams.body = JSON.stringify(options.body)
@@ -84,12 +85,14 @@ class Api {
   }
 
   addNewMovie(data) {
+    const { id, created_at, updated_at, ...body } = { ...data, movieId: data.id }
+
     return this.makeRequest(`${this._apiUrl}/movies`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: { ...data, movieId: data.id },
+      body,
     });
   }
 

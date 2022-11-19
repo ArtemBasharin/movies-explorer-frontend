@@ -47,8 +47,8 @@ function App() {
 
         mainApi
           .getUserInfo()
-          .then((res) => {
-            setCurrentUser(res)
+          .then(user => {
+            setCurrentUser(user)
             history.push("/movies")
 
             setPopup({
