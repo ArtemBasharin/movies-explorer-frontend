@@ -40,14 +40,9 @@ function getHumanizedDuration(duration) {
   return hours === 0 ? `${minutes}м` : `${hours}ч ${minutes}м`
 }
 
-function getSavedMovieCard(arr, movie) {
-  return arr.find(item => item.movieId === (movie.id || movie.movieId));
-}
-
 export {
   setMoviesDefaults,
   filterMovies,
   filterShortMovies,
   getHumanizedDuration,
-  getSavedMovieCard,
 };

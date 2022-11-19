@@ -1,7 +1,9 @@
-const SHORT_MOVIES_DURATION = 40;
+export const SHORT_MOVIES_DURATION = 40
+export const SEARCH_QUERY_LS_KEY = 'searchQuery'
+export const SHORT_MOVIES_MODE_LS_KEY = 'shortMoviesMode'
 export const JWT_LS_KEY = 'jwt'
 
-const DEVICE_PARAMS = {
+export const DEVICE_PARAMS = {
   desktop: {
     width: 1280,
     cards: {
@@ -24,5 +26,3 @@ const DEVICE_PARAMS = {
     },
   },
 };
-
-export { SHORT_MOVIES_DURATION, DEVICE_PARAMS };

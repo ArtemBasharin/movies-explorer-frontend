@@ -1,5 +1,4 @@
 import "./MoviesCard.css";
-import { useLocation } from "react-router-dom";
 import { getHumanizedDuration } from "../../utils";
 import mainApi from "../../api/MainApi";
 import { useContext } from "react";
@@ -9,12 +8,11 @@ export default function MoviesCard({
   movie,
   saved,
   onLikeClick,
+  isSavedMoviesPage,
 }) {
-  const location = useLocation();
   const { setPopup } = useContext(PopupContext)
   const { savedMovies, setSavedMovies } = useContext(SavedMoviesContext)
-  const isSavedMovies = location.pathname === '/saved-movies'
-  const title = isSavedMovies ? 'Удалить фильм из сохранённых' : `${saved ? 'Удалить фильм из сохранённых' : 'Сохранить фильм'}`
+  const title = isSavedMoviesPage ? 'Удалить фильм из сохранённых' : `${saved ? 'Удалить фильм из сохранённых' : 'Сохранить фильм'}`
 
   function handleLikeClick() {
     onLikeClick(movie);
@@ -60,8 +58,8 @@ export default function MoviesCard({
 
           <button
             type="button"
-            className={`movies-card__button movies-card__button_type_${isSavedMovies ? 'delete' : (saved ? 'saved' : 'save')}`}
-            onClick={isSavedMovies ? handleDeleteClick : (saved ? handleDeleteClick : handleLikeClick)}
+            className={`movies-card__button movies-card__button_type_${isSavedMoviesPage ? 'delete' : (saved ? 'saved' : 'save')}`}
+            onClick={isSavedMoviesPage ? handleDeleteClick : (saved ? handleDeleteClick : handleLikeClick)}
             aria-label={title}
             title={title}
           />

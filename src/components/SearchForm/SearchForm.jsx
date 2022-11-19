@@ -1,28 +1,54 @@
 import "./SearchForm.css";
-import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.jsx";
-import searchIcon from "../../images/search-icon.svg";
-import searchButton from "../../images/find-button.svg";
+import { useState, useEffect } from "react";
+import ShortMoviesFilter from "../ShortMoviesFilter/ShortMoviesFilter";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
 
+export default function SearchForm({
+  onSearchSubmit,
+  onShortMoviesFilterChange,
+  userQuery,
+  shortMoviesMode,
+}) {
+  const inputName = 'search'
+  const { values, handleChange, isValid } = useFormWithValidation({ initialValues: { [inputName]: userQuery } });
+  const [errorQuery, setErrorQuery] = useState('');
 
-export default function SearchForm() {
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    isValid ? onSearchSubmit(values[inputName]) : setErrorQuery('Нужно ввести ключевое слово');
+  }
+
+  useEffect(() => {
+    if (errorQuery !== '' && isValid) setErrorQuery('');
+  }, [errorQuery, isValid]);
+
   return (
     <section className="search">
-      <div className="search__icon">
-       <img style={{width: "15px", height: "15px"}} src={searchIcon} alt="Поиск иконка" />
-      </div>
-      <form className="search__form" name="search">
+      <form
+        className="search__form"
+        name="search"
+        noValidate
+        onSubmit={handleSubmit}
+      >
         <input
           className="search__input"
-          name="search"
+          name={inputName}
           type="text"
           placeholder="Фильм"
+          autoComplete="off"
+          value={values.search || ""}
+          onChange={handleChange}
           required
         />
-      <button className="search__button" type="submit">
-        <img src={searchButton} alt="Поиск" />
-      </button>
+        <span className="search__error">{errorQuery}</span>
+        <button className="search__button" type="submit"/>
       </form>
-      <FilterCheckbox />
+
+      <ShortMoviesFilter
+        shortMoviesMode={shortMoviesMode}
+        onFilterChange={onShortMoviesFilterChange}
+      />
     </section>
   );
 }

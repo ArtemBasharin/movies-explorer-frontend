@@ -1,44 +1,38 @@
 import "./MoviesCards.css";
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState, useEffect, useContext, useCallback } from "react";
 import useScreenWidth from "../../hooks/useScreenWidth";
 import { DEVICE_PARAMS } from "../../utils/constants.js";
-import { getSavedMovieCard } from "../../utils";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import { SavedMoviesContext } from "../../contexts";
+
+const { desktop, tablet, mobile } = DEVICE_PARAMS
 
 export default function MoviesCards({
   movies,
-  savedMovies,
   onLikeClick,
+  isSavedMoviesPage,
 }) {
   const screenWidth = useScreenWidth();
-
-  const { desktop, tablet, mobile } = DEVICE_PARAMS;
-  const [isMount, setIsMount] = useState(true);
   const [showMovieList, setShowMovieList] = useState([]);
-  const [cardsShowDetails, setCardsShowDetails] = useState({
-    total: 12,
-    more: 3,
-  });
+  const [cardsShowDetails, setCardsShowDetails] = useState({ total: 12, more: 3 });
+  const { savedMovies } = useContext(SavedMoviesContext)
 
-  const location = useLocation();
+  const isMovieCardSaved = useCallback(
+    movie => savedMovies.find(item => item.movieId === (movie.id || movie.movieId)),
+    [savedMovies],
+  )
 
   useEffect(() => {
-    if (location.pathname === "/movies") {
-      if (screenWidth > desktop.width) {
-        setCardsShowDetails(desktop.cards);
-      } else if (screenWidth <= desktop.width && screenWidth > mobile.width) {
-        setCardsShowDetails(tablet.cards);
-      } else {
-        setCardsShowDetails(mobile.cards);
-      }
-      return () => setIsMount(false);
+    if (!isSavedMoviesPage) {
+      if (screenWidth >= desktop.width) setCardsShowDetails(desktop.cards)
+      else if (screenWidth <= mobile.width) setCardsShowDetails(mobile.cards)
+      else setCardsShowDetails(tablet.cards);
     }
-  }, [screenWidth, isMount, desktop, tablet, mobile, location.pathname]);
+  }, [isSavedMoviesPage, screenWidth]);
 
   useEffect(() => {
     if (movies.length) {
-      const res = movies.filter((item, i) => i < cardsShowDetails.total);
+      const res = movies.filter((_, i) => i < cardsShowDetails.total);
       setShowMovieList(res);
     }
   }, [movies, cardsShowDetails.total]);
@@ -57,25 +51,25 @@ export default function MoviesCards({
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__list">
-        {showMovieList.map((movie) => (
+        {showMovieList.map(movie => (
           <MoviesCard
             key={movie.id || movie._id}
-            saved={getSavedMovieCard(savedMovies, movie)}
+            saved={isMovieCardSaved(movie)}
             onLikeClick={onLikeClick}
             movie={movie}
+            isSavedMoviesPage={isSavedMoviesPage}
           />
         ))}
       </ul>
-      {location.pathname === "/movies" &&
-        showMovieList.length >= 5 &&
-        showMovieList.length < movies.length && (
-          <button
-            className="movies-card-list__show-more"
-            onClick={handleClickMoreMovies}
-          >
-            Ещё
-          </button>
-        )}
+
+      {!isSavedMoviesPage && showMovieList.length >= 5 && showMovieList.length < movies.length && (
+        <button
+          className="movies-card-list__show-more"
+          onClick={handleClickMoreMovies}
+        >
+          Ещё
+        </button>
+      )}
     </section>
   );
 }

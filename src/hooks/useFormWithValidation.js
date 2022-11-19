@@ -1,8 +1,8 @@
 import { useState, useCallback } from "react";
 import isEmail from "validator/es/lib/isEmail";
 
-export default function useFormWithValidation() {
-  const [values, setValues] = useState({});
+export default function useFormWithValidation({ initialValues } = { initialValues: {} }) {
+  const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
 
@@ -30,6 +30,7 @@ export default function useFormWithValidation() {
     setErrors({ ...errors, [name]: input.validationMessage });
     setIsValid(input.closest("form").checkValidity());
   };
+
   const resetForm = useCallback(
     (newValues = {}, newErrors = {}, newIsValid = false) => {
       setValues(newValues);
