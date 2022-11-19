@@ -20,14 +20,14 @@ import NotFound from "../NotFound/NotFound";
 import Loader from "../Loader/Loader";
 import Popup from "../Popup/Popup";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import PopupContext from "../../contexts/PopupContext";
-import SavedMoviesContext from "../../contexts/SavedMoviesContext";
+import moviesApi from "../../api/MoviesApi";
 
 function App() {
   const history = useHistory();
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
 
   const [popup, setPopup] = useState({
@@ -99,18 +99,19 @@ function App() {
     if (currentUser) {
       setIsLoaderVisible(true)
 
-      mainApi
-        .getSavedMovies()
-        .then(data => {
-          setSavedMovies(data.filter(m => m.owner === currentUser._id));
+      Promise.all([
+        moviesApi.getMovies(),
+        mainApi.getSavedMovies(),
+      ]).then(([allMovies, userSavedMovies]) => {
+        setMovies(allMovies)
+        setSavedMovies(userSavedMovies)
+      }).catch(err => {
+        setPopup({
+          isOpen: true,
+          successful: false,
+          text: err,
         })
-        .catch(err => {
-          setPopup({
-            isOpen: true,
-            successful: false,
-            text: err,
-          })
-        }).finally(() => setIsLoaderVisible(false));
+      }).finally(() => setIsLoaderVisible(false));
     }
   }, [currentUser]);
 
@@ -118,57 +119,59 @@ function App() {
     <LoaderContext.Provider value={{ isLoaderVisible, setIsLoaderVisible }}>
       <PopupContext.Provider value={{ popup, setPopup }}>
         <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
-          <SavedMoviesContext.Provider value={{ savedMovies, setSavedMovies }}>
-            <div className="app">
-              {isAuthChecking ? <Loader /> : (
-                <>
-                  {isLoaderVisible && <Loader />}
-                  <Popup />
+          <MoviesContext.Provider value={{ movies }}>
+            <SavedMoviesContext.Provider value={{ savedMovies, setSavedMovies }}>
+              <div className="app">
+                {isAuthChecking ? <Loader /> : (
+                  <>
+                    {isLoaderVisible && <Loader />}
+                    <Popup />
 
-                  <Route exact path={headerEndpoints}>
-                    <Header />
-                  </Route>
-
-                  <Switch>
-                    <Route exact path="/">
-                      <Main />
+                    <Route exact path={headerEndpoints}>
+                      <Header />
                     </Route>
 
-                    <Route exact path="/signup">
-                      {currentUser ? <Redirect to="/" /> : <Register handleLogin={handleLogin} />}
+                    <Switch>
+                      <Route exact path="/">
+                        <Main />
+                      </Route>
+
+                      <Route exact path="/signup">
+                        {currentUser ? <Redirect to="/" /> : <Register handleLogin={handleLogin} />}
+                      </Route>
+
+                      <Route exact path="/signin">
+                        {currentUser ? <Redirect to="/" /> : <Login handleLogin={handleLogin} />}
+                      </Route>
+
+                      <ProtectedRoute
+                        path="/movies"
+                        component={Movies}
+                      />
+
+                      <ProtectedRoute
+                        path="/saved-movies"
+                        component={SavedMovies}
+                      />
+
+                      <ProtectedRoute
+                        path="/profile"
+                        component={Profile}
+                      />
+
+                      <Route path="*">
+                        <NotFound />
+                      </Route>
+                    </Switch>
+
+                    <Route exact path={footerEndpoints}>
+                      <Footer />
                     </Route>
-
-                    <Route exact path="/signin">
-                      {currentUser ? <Redirect to="/" /> : <Login handleLogin={handleLogin} />}
-                    </Route>
-
-                    <ProtectedRoute
-                      path="/movies"
-                      component={Movies}
-                    />
-
-                    <ProtectedRoute
-                      path="/saved-movies"
-                      component={SavedMovies}
-                    />
-
-                    <ProtectedRoute
-                      path="/profile"
-                      component={Profile}
-                    />
-
-                    <Route path="*">
-                      <NotFound />
-                    </Route>
-                  </Switch>
-
-                  <Route exact path={footerEndpoints}>
-                    <Footer />
-                  </Route>
-                </>
-              )}
-            </div>
-          </SavedMoviesContext.Provider>
+                  </>
+                )}
+              </div>
+            </SavedMoviesContext.Provider>
+          </MoviesContext.Provider>
         </CurrentUserContext.Provider>
       </PopupContext.Provider>
     </LoaderContext.Provider>
