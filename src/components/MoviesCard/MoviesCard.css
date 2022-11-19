@@ -85,16 +85,16 @@
   animation: heartbeat 0.2s ease-in 2;
 }
 
-.movies-card__button_type_unsave {
+.movies-card__button_type_delete {
   background-image: url("../../images/delete-card.svg");
   opacity: 1;
 }
 
-.movies-card:hover .movies-card__button_type_unsave {
+.movies-card:hover .movies-card__button_type_delete {
   opacity: 0.8;
 }
 
-.movies-card:hover .movies-card__button_type_unsave:hover {
+.movies-card:hover .movies-card__button_type_delete:hover {
   opacity: 0.8;
 }
 
@@ -141,7 +141,7 @@
 }
 
 @media screen and (max-width: 583px) {
-  .movies-card__button_type_unsave {
+  .movies-card__button_type_delete {
     opacity: 1;
   }
 
