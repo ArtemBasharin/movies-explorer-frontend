@@ -2,7 +2,7 @@ import './Login.css';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
-import useFormWithValidation from '../../hooks/useFormWithValidation.jsx';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 
 export default function Login({ handleLogin }) {
   const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();

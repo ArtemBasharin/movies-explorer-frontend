@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Header.css';
-import Navigation from '../Navigation/Navigation.jsx';
+import Navigation from '../Navigation/Navigation';
 import logo from '../../images/logo.svg';
 
 export const headerEndpoints = ["/movies", "/saved-movies", "/profile", "/"];

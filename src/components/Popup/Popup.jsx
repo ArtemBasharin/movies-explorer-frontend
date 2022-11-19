@@ -1,5 +1,5 @@
 import './Popup.css';
-import useEscapePress from '../../hooks/useEscapePress.jsx';
+import useEscapePress from '../../hooks/useEscapePress';
 import PopupContext from '../../contexts/PopupContext';
 import { useContext } from 'react';
 

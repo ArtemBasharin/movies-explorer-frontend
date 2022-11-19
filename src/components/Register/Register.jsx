@@ -2,7 +2,7 @@ import './Register.css';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
-import useFormWithValidation from '../../hooks/useFormWithValidation.jsx';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 import LoaderContext from '../../contexts/LoaderContext';
 import mainApi from '../../api/MainApi';
 import PopupContext from '../../contexts/PopupContext';

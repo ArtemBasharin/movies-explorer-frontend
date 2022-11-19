@@ -1,7 +1,7 @@
 import "./Profile.css";
 import { useEffect, useContext } from "react";
-import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
-import useFormWithValidation from "../../hooks/useFormWithValidation.jsx";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
 import mainApi from "../../api/MainApi";
 import LoaderContext from "../../contexts/LoaderContext";
 import PopupContext from "../../contexts/PopupContext";
