@@ -1,7 +1,7 @@
-export const SHORT_MOVIES_DURATION = 40
-export const SEARCH_QUERY_LS_KEY = 'searchQuery'
-export const SHORT_MOVIES_MODE_LS_KEY = 'shortMoviesMode'
-export const JWT_LS_KEY = 'jwt'
+export const SHORT_MOVIES_DURATION = 40;
+export const SEARCH_QUERY_LS_KEY = "searchQuery";
+export const SHORT_MOVIES_MODE_LS_KEY = "shortMoviesMode";
+export const JWT_LS_KEY = "jwt";
 
 export const DEVICE_PARAMS = {
   desktop: {
@@ -19,7 +19,7 @@ export const DEVICE_PARAMS = {
     },
   },
   mobile: {
-    width: 583,
+    width: 480,
     cards: {
       total: 5,
       more: 2,

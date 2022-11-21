@@ -9,18 +9,22 @@ export default function SearchForm({
   userQuery,
   shortMoviesMode,
 }) {
-  const inputName = 'search'
-  const { values, handleChange, isValid } = useFormWithValidation({ initialValues: { [inputName]: userQuery } });
-  const [errorQuery, setErrorQuery] = useState('');
+  const inputName = "search";
+  const { values, handleChange, isValid } = useFormWithValidation({
+    initialValues: { [inputName]: userQuery },
+  });
+  const [errorQuery, setErrorQuery] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    isValid ? onSearchSubmit(values[inputName]) : setErrorQuery('Нужно ввести ключевое слово');
+    isValid
+      ? onSearchSubmit(values[inputName])
+      : setErrorQuery("Нужно ввести ключевое слово");
   }
 
   useEffect(() => {
-    if (errorQuery !== '' && isValid) setErrorQuery('');
+    if (errorQuery !== "" && isValid) setErrorQuery("");
   }, [errorQuery, isValid]);
 
   return (
@@ -42,7 +46,7 @@ export default function SearchForm({
           required
         />
         <span className="search__error">{errorQuery}</span>
-        <button className="search__button" type="submit"/>
+        <button className="search__button" type="submit" />
       </form>
 
       <ShortMoviesFilter
