@@ -82,12 +82,16 @@ function App() {
         .then(user => {
           setCurrentUser(user);
         })
-        .catch((err) => {
-          setPopup({
-            isOpen: true,
-            successful: false,
-            text: err,
-          })
+        .catch(errorMessage => {
+          if (errorMessage === 'Необходима авторизация') {
+            localStorage.clear()
+          } else {
+            setPopup({
+              isOpen: true,
+              successful: false,
+              text: errorMessage,
+            })
+          }
 
           setGettingInitials(false);
         })
