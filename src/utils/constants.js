@@ -1,6 +1,7 @@
 export const SHORT_MOVIES_DURATION = 40;
 export const SEARCH_QUERY_LS_KEY = "searchQuery";
 export const SHORT_MOVIES_MODE_LS_KEY = "shortMoviesMode";
+export const ALL_MOVIES_LS_KEY = "allMovies";
 export const JWT_LS_KEY = "jwt";
 
 export const DEVICE_PARAMS = {
