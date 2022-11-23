@@ -73,6 +73,12 @@ function App() {
       })
   }
 
+  function signOut() {
+    setCurrentUser(null);
+    localStorage.clear();
+    history.push("/");
+  }
+
   useEffect(() => {
     const jwt = localStorage.getItem(JWT_LS_KEY);
 
@@ -125,7 +131,7 @@ function App() {
   return (
     <LoaderContext.Provider value={{ isLoaderVisible, setIsLoaderVisible }}>
       <PopupContext.Provider value={{ popup, setPopup }}>
-        <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+        <CurrentUserContext.Provider value={{ currentUser, setCurrentUser, signOut }}>
           <MoviesContext.Provider value={{ movies }}>
             <SavedMoviesContext.Provider value={{ savedMovies, setSavedMovies }}>
               <div className="app">

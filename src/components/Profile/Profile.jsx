@@ -2,21 +2,13 @@ import "./Profile.css";
 import { useEffect, useContext } from "react";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 import mainApi from "../../api/MainApi";
-import { useHistory } from "react-router-dom";
 import { CurrentUserContext, LoaderContext, PopupContext } from "../../contexts";
 
 export default function Profile() {
-  const history = useHistory();
   const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser, signOut } = useContext(CurrentUserContext);
   const { setIsLoaderVisible } = useContext(LoaderContext)
   const { setPopup } = useContext(PopupContext)
-
-  function handleSignOut() {
-    setCurrentUser(null);
-    localStorage.clear();
-    history.push("/");
-  }
 
   function handleProfile({ name, email }) {
     setIsLoaderVisible(true);
@@ -113,7 +105,7 @@ export default function Profile() {
           <button
             type="submit"
             className="profile__button-exit"
-            onClick={handleSignOut}
+            onClick={signOut}
           >
             Выйти из аккаунта
           </button>
