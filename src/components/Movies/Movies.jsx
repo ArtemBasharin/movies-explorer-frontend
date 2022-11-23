@@ -58,13 +58,19 @@ export default function Movies() {
   }, [isSavedMoviesPage, movies, savedMovies, setMovies, setPopup])
 
   useEffect(() => {
-    if (movies.length === 0) return
+    if (isSavedMoviesPage) {
+      setUserQuery('')
+      setShortMoviesMode(false)
+      setFilteredMovies(savedMovies)
+    } else {
+      const savedQuery = localStorage.getItem(SEARCH_QUERY_LS_KEY) || ''
+      const savedMode = localStorage.getItem(SHORT_MOVIES_MODE_LS_KEY) === 'true'
 
-    if (isSavedMoviesPage || userQuery.length > 0) {
-      handleSetFilteredMovies(userQuery, shortMoviesMode)
+      setUserQuery(savedQuery)
+      setShortMoviesMode(savedMode)
+      handleSetFilteredMovies(savedQuery, savedMode)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, movies.length])
+  }, [handleSetFilteredMovies, isSavedMoviesPage, location.pathname, movies.length, savedMovies])
 
   useEffect(() => {
     if (isSavedMoviesPage && filteredMovies.length > savedMovies.length) {
@@ -88,6 +94,7 @@ export default function Movies() {
   return (
     <main className="movies">
       <SearchForm
+        key={userQuery}
         onSearchSubmit={handleSearchSubmit}
         onShortMoviesFilterChange={handleShortMoviesFilterChange}
         userQuery={userQuery}
