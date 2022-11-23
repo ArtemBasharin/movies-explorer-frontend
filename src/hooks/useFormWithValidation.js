@@ -4,7 +4,8 @@ import isEmail from "validator/es/lib/isEmail";
 export default function useFormWithValidation({ initialValues } = { initialValues: {} }) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(false);
+  // Set valid if have initial values
+  const [isValid, setIsValid] = useState(Object.keys(initialValues).length ? true : false);
 
   const handleChange = (e) => {
     const input = e.target;
