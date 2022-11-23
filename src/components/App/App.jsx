@@ -19,9 +19,7 @@ import NotFound from "../NotFound/NotFound";
 import Loader from "../Loader/Loader";
 import Popup from "../Popup/Popup";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import moviesApi from "../../api/MoviesApi";
 import { JWT_LS_KEY } from "../../utils/constants";
-import { setMoviesDefaults } from "../../utils";
 
 function App() {
   const history = useHistory();
@@ -115,10 +113,8 @@ function App() {
   useEffect(() => {
     if (currentUser) {
       Promise.all([
-        moviesApi.getMovies(),
         mainApi.getSavedMovies(),
-      ]).then(([allMovies, userSavedMovies]) => {
-        setMovies(setMoviesDefaults(allMovies))
+      ]).then(([userSavedMovies]) => {
         setSavedMovies(userSavedMovies)
       }).catch(err => {
         setPopup({
@@ -134,7 +130,7 @@ function App() {
     <LoaderContext.Provider value={{ isLoaderVisible, setIsLoaderVisible }}>
       <PopupContext.Provider value={{ popup, setPopup }}>
         <CurrentUserContext.Provider value={{ currentUser, setCurrentUser, signOut }}>
-          <MoviesContext.Provider value={{ movies }}>
+          <MoviesContext.Provider value={{ movies, setMovies }}>
             <SavedMoviesContext.Provider value={{ savedMovies, setSavedMovies }}>
               <div className="app">
                 {(isAuthChecking || gettingInitials) ? <Loader /> : (

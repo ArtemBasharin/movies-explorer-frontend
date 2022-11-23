@@ -1,9 +1,10 @@
 import "./Movies.css";
 import { useState, useContext, useEffect, useCallback } from "react";
-import { filterMovies } from "../../utils";
+import { filterMovies, setMoviesDefaults } from "../../utils";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCards from "../MoviesCards/MoviesCards";
 import mainApi from "../../api/MainApi";
+import moviesApi from "../../api/MoviesApi";
 import { SEARCH_QUERY_LS_KEY, SHORT_MOVIES_MODE_LS_KEY } from "../../utils/constants";
 import { MoviesContext, PopupContext, SavedMoviesContext } from "../../contexts";
 import { useLocation } from "react-router-dom";
@@ -13,7 +14,7 @@ export default function Movies() {
   const isSavedMoviesPage = location.pathname === '/saved-movies'
   const { setPopup } = useContext(PopupContext)
   const { savedMovies, setSavedMovies } = useContext(SavedMoviesContext)
-  const { movies } = useContext(MoviesContext)
+  const { movies, setMovies } = useContext(MoviesContext)
   const [shortMoviesMode, setShortMoviesMode] = useState(localStorage.getItem(SHORT_MOVIES_MODE_LS_KEY) === 'true');
   const [userQuery, setUserQuery] = useState(localStorage.getItem(SEARCH_QUERY_LS_KEY) || '');
   const [filteredMovies, setFilteredMovies] = useState([]);
@@ -31,9 +32,16 @@ export default function Movies() {
       )
   }
 
-  const handleSetFilteredMovies = useCallback((userQuery, shortMoviesMode) => {
+  const handleSetFilteredMovies = useCallback(async (userQuery, shortMoviesMode) => {
+    let firstSearchMovies = []
+
+    if (!isSavedMoviesPage && movies.length === 0) {
+      firstSearchMovies = await moviesApi.getMovies()
+      setMovies(setMoviesDefaults(firstSearchMovies))
+    }
+
     const moviesList = filterMovies(
-      isSavedMoviesPage ? savedMovies : movies,
+      isSavedMoviesPage ? savedMovies : (firstSearchMovies.length > 0 ? firstSearchMovies : movies),
       userQuery,
       shortMoviesMode
     )
@@ -47,7 +55,7 @@ export default function Movies() {
         text: "Ничего не найдено",
       })
     }
-  }, [isSavedMoviesPage, movies, savedMovies, setPopup])
+  }, [isSavedMoviesPage, movies, savedMovies, setMovies, setPopup])
 
   useEffect(() => {
     if (movies.length === 0) return
