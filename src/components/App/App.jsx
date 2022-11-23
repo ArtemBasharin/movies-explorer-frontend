@@ -1,7 +1,7 @@
 import "./App.css";
 import mainApi from "../../api/MainApi.js";
 import { CurrentUserContext, LoaderContext, MoviesContext, PopupContext, SavedMoviesContext } from "../../contexts";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Route,
   Switch,
@@ -73,13 +73,16 @@ function App() {
       })
   }
 
-  function signOut() {
+  const signOut = useCallback(() => {
+    console.log('signOut = useCallback')
     setCurrentUser(null);
     localStorage.clear();
     history.push("/");
-  }
+  }, [history])
 
-  mainApi.setOnUnauthorizedHandler(signOut)
+  useEffect(() => {
+    mainApi.setOnUnauthorizedHandler(signOut)
+  }, [signOut])
 
   useEffect(() => {
     const jwt = localStorage.getItem(JWT_LS_KEY);
@@ -91,15 +94,11 @@ function App() {
           setCurrentUser(user);
         })
         .catch(errorMessage => {
-          if (errorMessage === 'Необходима авторизация') {
-            localStorage.clear()
-          } else {
-            setPopup({
-              isOpen: true,
-              successful: false,
-              text: errorMessage,
-            })
-          }
+          setPopup({
+            isOpen: true,
+            successful: false,
+            text: errorMessage,
+          })
 
           setGettingInitials(false);
         })
@@ -107,6 +106,7 @@ function App() {
           setIsAuthChecking(false);
         });
     } else {
+      localStorage.clear();
       setIsAuthChecking(false);
       setGettingInitials(false);
     }

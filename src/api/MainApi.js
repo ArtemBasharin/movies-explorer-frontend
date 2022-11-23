@@ -14,6 +14,7 @@ class Api {
   }
 
   async _requestResult(res) {
+    if (typeof res === 'string') return Promise.reject(res);
     if (res instanceof Error) return Promise.reject(res.message);
     if (res.status === 401 && this._onUnauthorized) this._onUnauthorized()
 
@@ -53,8 +54,8 @@ class Api {
     }
 
     return fetch(path, requestParams)
-      .then(this._requestResult)
-      .catch(this._requestResult);
+      .then(res => this._requestResult(res))
+      .catch(res => this._requestResult(res));
   }
 
   createUser(name, email, password) {
