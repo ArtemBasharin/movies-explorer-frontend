@@ -72,8 +72,9 @@ function App() {
   }
 
   const signOut = useCallback(() => {
-    console.log('signOut = useCallback')
     setCurrentUser(null);
+    setMovies([])
+    setSavedMovies([])
     localStorage.clear();
     history.push("/");
   }, [history])
