@@ -1,3 +1,5 @@
+import { ALL_MOVIES_LS_KEY } from "../utils/constants";
+
 export const MOVIES_URL = "https://api.nomoreparties.co/beatfilm-movies";
 
 class MoviesApi {
@@ -11,7 +13,7 @@ class MoviesApi {
   }
 
   getMovies() {
-    const allMoviesLS = localStorage.getItem('ALL_MOVIES_LS_KEY')
+    const allMoviesLS = localStorage.getItem(ALL_MOVIES_LS_KEY)
 
     if (allMoviesLS) return Promise.resolve(JSON.parse(allMoviesLS))
 
@@ -21,7 +23,7 @@ class MoviesApi {
     })
       .then(res => this._requestResult(res))
       .then(movies => {
-        localStorage.setItem('ALL_MOVIES_LS_KEY', JSON.stringify(movies))
+        localStorage.setItem(ALL_MOVIES_LS_KEY, JSON.stringify(movies))
 
         return movies
       });
