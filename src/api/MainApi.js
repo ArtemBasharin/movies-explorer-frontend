@@ -3,11 +3,18 @@ import { JWT_LS_KEY } from "../utils/constants";
 export const API_URL = "https://api.movex.nomoredomains.sbs";
 
 class Api {
+  _onUnauthorized = null
+
   constructor({ apiUrl }) {
     this._apiUrl = apiUrl;
   }
 
+  setOnUnauthorizedHandler(signOut) {
+    this._onUnauthorized = signOut
+  }
+
   async _requestResult(res) {
+    if (res.status === 401 && this._onUnauthorized) this._onUnauthorized()
     const result = await res.json();
     return res.ok ? result : Promise.reject(result.message);
   }

@@ -79,6 +79,8 @@ function App() {
     history.push("/");
   }
 
+  mainApi.setOnUnauthorizedHandler(signOut)
+
   useEffect(() => {
     const jwt = localStorage.getItem(JWT_LS_KEY);
 
