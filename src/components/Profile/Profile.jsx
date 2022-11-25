@@ -103,7 +103,6 @@ export default function Profile() {
           </button>
 
           <button
-            type="submit"
             className="profile__button-exit"
             onClick={signOut}
           >
