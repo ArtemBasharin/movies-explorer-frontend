@@ -1,6 +1,6 @@
 import "./Movies.css";
 import { useState, useContext, useEffect, useCallback } from "react";
-import { filterMovies, setMoviesDefaults } from "../../utils";
+import { filterMovies } from "../../utils";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCards from "../MoviesCards/MoviesCards";
 import mainApi from "../../api/MainApi";
@@ -37,7 +37,7 @@ export default function Movies() {
 
     if (!isSavedMoviesPage && movies.length === 0) {
       firstSearchMovies = await moviesApi.getMovies()
-      setMovies(setMoviesDefaults(firstSearchMovies))
+      setMovies(firstSearchMovies)
     }
 
     const moviesList = filterMovies(
