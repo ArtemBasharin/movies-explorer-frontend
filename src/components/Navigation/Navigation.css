@@ -51,7 +51,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.3s ease;
+}
+
+.navigation__link.active {
+  font-weight: 500;
 }
 
 .navigation__link:hover {
