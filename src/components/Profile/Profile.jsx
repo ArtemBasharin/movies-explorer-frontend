@@ -102,6 +102,7 @@ export default function Profile() {
           </button>
 
           <button
+            type="button"
             className="profile__button-exit"
             onClick={signOut}
           >
