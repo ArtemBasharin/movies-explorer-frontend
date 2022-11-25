@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCards from "../MoviesCards/MoviesCards";
 import mainApi from "../../api/MainApi";
 import moviesApi from "../../api/MoviesApi";
-import { SEARCH_QUERY_LS_KEY, SHORT_MOVIES_MODE_LS_KEY } from "../../utils/constants";
+import { FILTERED_ALL_MOVIES_LS_KEY, SEARCH_QUERY_LS_KEY, SHORT_MOVIES_MODE_LS_KEY } from "../../utils/constants";
 import { MoviesContext, PopupContext, SavedMoviesContext } from "../../contexts";
 import { useLocation } from "react-router-dom";
 
@@ -48,6 +48,8 @@ export default function Movies() {
 
     setFilteredMovies(moviesList)
 
+    if (!isSavedMoviesPage) localStorage.setItem(FILTERED_ALL_MOVIES_LS_KEY, JSON.stringify(moviesList));
+
     if (moviesList.length === 0) {
       setPopup({
         isOpen: true,
@@ -57,6 +59,7 @@ export default function Movies() {
     }
   }, [isSavedMoviesPage, movies, savedMovies, setMovies, setPopup])
 
+  // on page open/return
   useEffect(() => {
     if (isSavedMoviesPage) {
       setUserQuery('')
@@ -65,10 +68,13 @@ export default function Movies() {
     } else {
       const savedQuery = localStorage.getItem(SEARCH_QUERY_LS_KEY) || ''
       const savedMode = localStorage.getItem(SHORT_MOVIES_MODE_LS_KEY) === 'true'
+      let filteredAllMovies = JSON.parse(localStorage.getItem(FILTERED_ALL_MOVIES_LS_KEY))
 
       setUserQuery(savedQuery)
       setShortMoviesMode(savedMode)
-      handleSetFilteredMovies(savedQuery, savedMode)
+
+      if (filteredAllMovies) setFilteredMovies(filteredAllMovies)
+      else handleSetFilteredMovies(savedQuery, savedMode)
     }
   }, [handleSetFilteredMovies, isSavedMoviesPage, location.pathname, movies.length, savedMovies])
 
@@ -82,13 +88,13 @@ export default function Movies() {
   function handleSearchSubmit(newSearchQuery) {
     setUserQuery(newSearchQuery)
     handleSetFilteredMovies(newSearchQuery, shortMoviesMode)
-    localStorage.setItem(SEARCH_QUERY_LS_KEY, newSearchQuery);
+    if (!isSavedMoviesPage) localStorage.setItem(SEARCH_QUERY_LS_KEY, newSearchQuery);
   }
 
   function handleShortMoviesFilterChange(newShortMoviesMode) {
     setShortMoviesMode(newShortMoviesMode)
     handleSetFilteredMovies(userQuery, newShortMoviesMode)
-    localStorage.setItem(SHORT_MOVIES_MODE_LS_KEY, newShortMoviesMode);
+    if (!isSavedMoviesPage) localStorage.setItem(SHORT_MOVIES_MODE_LS_KEY, newShortMoviesMode);
   }
 
   return (
