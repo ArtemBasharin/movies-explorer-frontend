@@ -6,6 +6,8 @@ export const FILTERED_ALL_MOVIES_LS_KEY = "filteredAllMovies";
 export const SAVED_MOVIES_LS_KEY = "savedMovies";
 export const JWT_LS_KEY = "jwt";
 
+export const saveMoviesToLS = movies => localStorage.setItem(SAVED_MOVIES_LS_KEY, JSON.stringify(movies))
+
 export const DEVICE_PARAMS = {
   desktop: {
     width: 1280,

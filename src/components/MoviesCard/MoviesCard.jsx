@@ -3,6 +3,7 @@ import { getHumanizedDuration } from "../../utils";
 import mainApi from "../../api/MainApi";
 import { useContext } from "react";
 import { PopupContext, SavedMoviesContext } from "../../contexts";
+import { saveMoviesToLS } from "../../utils/constants";
 
 export default function MoviesCard({
   movie,
@@ -25,7 +26,7 @@ export default function MoviesCard({
       .deleteMovie(savedMovie._id)
       .then(() => {
         const moviesWithoutDeleted = savedMovies.filter(m => !(movie.id === m.movieId || movie.movieId === m.movieId));
-
+        saveMoviesToLS(moviesWithoutDeleted);
         setSavedMovies(moviesWithoutDeleted);
       })
       .catch((err) =>

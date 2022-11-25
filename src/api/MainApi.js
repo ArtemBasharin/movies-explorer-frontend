@@ -1,4 +1,4 @@
-import { JWT_LS_KEY, SAVED_MOVIES_LS_KEY } from "../utils/constants";
+import { JWT_LS_KEY, SAVED_MOVIES_LS_KEY, saveMoviesToLS } from "../utils/constants";
 
 export const API_URL = "https://api.movex.nomoredomains.sbs";
 
@@ -99,7 +99,7 @@ class Api {
 
     return this.makeRequest(`${this._apiUrl}/movies`)
       .then(movies => {
-        localStorage.setItem(SAVED_MOVIES_LS_KEY, JSON.stringify(movies))
+        saveMoviesToLS(movies);
 
         return movies
       });

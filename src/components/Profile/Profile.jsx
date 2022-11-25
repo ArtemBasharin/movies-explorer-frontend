@@ -88,7 +88,6 @@ export default function Profile() {
             />
             <span className="profile__error">{errors.email || ""}</span>
           </label>
-
         </div>
 
         <div className="profile__button-container">

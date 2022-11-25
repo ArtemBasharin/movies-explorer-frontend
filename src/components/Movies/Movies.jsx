@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCards from "../MoviesCards/MoviesCards";
 import mainApi from "../../api/MainApi";
 import moviesApi from "../../api/MoviesApi";
-import { FILTERED_ALL_MOVIES_LS_KEY, SEARCH_QUERY_LS_KEY, SHORT_MOVIES_MODE_LS_KEY } from "../../utils/constants";
+import { FILTERED_ALL_MOVIES_LS_KEY, saveMoviesToLS, SEARCH_QUERY_LS_KEY, SHORT_MOVIES_MODE_LS_KEY } from "../../utils/constants";
 import { MoviesContext, PopupContext, SavedMoviesContext } from "../../contexts";
 import { useLocation } from "react-router-dom";
 
@@ -22,7 +22,12 @@ export default function Movies() {
   function onLikeClick(movie) {
     mainApi
       .addNewMovie(movie)
-      .then(newMovie => setSavedMovies([newMovie, ...savedMovies]))
+      .then(newMovie => {
+        const moviesWithLiked = [newMovie, ...savedMovies]
+
+        saveMoviesToLS(moviesWithLiked);
+        setSavedMovies(moviesWithLiked)
+      })
       .catch(err =>
         setPopup({
           isOpen: true,
@@ -74,16 +79,17 @@ export default function Movies() {
       setShortMoviesMode(savedMode)
 
       if (filteredAllMovies) setFilteredMovies(filteredAllMovies)
-      else handleSetFilteredMovies(savedQuery, savedMode)
+      else setFilteredMovies([])
     }
-  }, [handleSetFilteredMovies, isSavedMoviesPage, location.pathname, movies.length, savedMovies])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
 
   useEffect(() => {
-    if (isSavedMoviesPage && filteredMovies.length > savedMovies.length) {
+    if (isSavedMoviesPage) {
       handleSetFilteredMovies(userQuery, shortMoviesMode)
     }
-  }, [filteredMovies.length, handleSetFilteredMovies, isSavedMoviesPage, savedMovies.length, shortMoviesMode, userQuery])
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savedMovies.length])
 
   function handleSearchSubmit(newSearchQuery) {
     setUserQuery(newSearchQuery)
@@ -93,7 +99,7 @@ export default function Movies() {
 
   function handleShortMoviesFilterChange(newShortMoviesMode) {
     setShortMoviesMode(newShortMoviesMode)
-    handleSetFilteredMovies(userQuery, newShortMoviesMode)
+    if (userQuery !== '') handleSetFilteredMovies(userQuery, newShortMoviesMode)
     if (!isSavedMoviesPage) localStorage.setItem(SHORT_MOVIES_MODE_LS_KEY, newShortMoviesMode);
   }
 
