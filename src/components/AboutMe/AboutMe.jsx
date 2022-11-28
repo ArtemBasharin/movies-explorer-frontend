@@ -5,7 +5,7 @@ export default function AboutMe() {
   return (
     <section className="aboutme">
       <div className="aboutme__container">
-        <h2 className="aboutme__title">I'm a developer</h2>
+        <h2 id="aboutme__title" className="aboutme__title">I'm a developer</h2>
         <div className="aboutme__biography-container">
           <div className="aboutme__biography">
             <h3 className="aboutme__name">Artem Basharin</h3>

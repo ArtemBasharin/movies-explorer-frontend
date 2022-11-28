@@ -1,4 +1,6 @@
-import './Footer.css';
+import "./Footer.css";
+
+export const footerEndpoints = ["/movies", "/saved-movies", "/"];
 
 export default function Footer() {
   return (
@@ -11,18 +13,34 @@ export default function Footer() {
           <p className="footer__copyright">&copy;{new Date().getFullYear()}</p>
           <ul className="footer__links">
             <li>
-              <a href="https://practicum.yandex.ru/"
+              <a
+                href="https://practicum.yandex.ru/"
                 target="_blank"
-                rel="noreferrer"
+                rel="nonoopener noreferrer"
                 className="footer__link"
-              >Яндекс.Практикум</a>
+              >
+                Яндекс.Практикум
+              </a>
             </li>
             <li>
-              <a href="https://github.com/ArtemBasharin"
+              <a
+                href="https://github.com/ArtemBasharin"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="footer__link"
-              > Github</a>
+              >
+                Github
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://career.habr.com/artembash"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer__link"
+              >
+                Career.habr
+              </a>
             </li>
           </ul>
         </div>

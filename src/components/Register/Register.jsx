@@ -1,15 +1,38 @@
 import './Register.css';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
-import useFormWithValidation from '../../reacthooks/useFormWithValidation.jsx';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
+import mainApi from '../../api/MainApi';
+import { LoaderContext, PopupContext } from '../../contexts';
 
-export default function Register() {
+export default function Register({ handleLogin }) {
   const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
+  const { setIsLoaderVisible } = useContext(LoaderContext)
+  const { setPopup } = useContext(PopupContext)
+
+  function handleRegister({ name, email, password }) {
+    setIsLoaderVisible(true);
+
+    mainApi
+      .createUser(name, email, password)
+      .then(() => {
+        handleLogin({ email, password });
+      })
+      .catch((err) => {
+        setPopup({
+          isOpen: true,
+          successful: false,
+          text: err,
+        })
+
+        setIsLoaderVisible(false)
+      })
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    // handleRegister(values);
+    handleRegister(values);
   }
 
   useEffect(() => {
@@ -22,7 +45,9 @@ export default function Register() {
         <Link to="/" className="register__link">
           <img src={logo} alt="Логотип" className="register__logo" />
         </Link>
+
         <h1 className="register__title">Добро пожаловать!</h1>
+
         <div className="register__labels-container">
           <label className="register__label">
             <span className="register__label-text">Имя</span>
@@ -35,9 +60,11 @@ export default function Register() {
               required
               minLength="2"
               maxLength="30"
+              pattern="^[A-Za-zА-Яа-яЁё /s -]+$"
             />
             <span className="register__error">{errors.name || ''}</span>
           </label>
+
           <label className="register__label">
             <span className="register__label-text">E-mail</span>
             <input
@@ -50,6 +77,7 @@ export default function Register() {
             />
             <span className="register__error">{errors.email || ''}</span>
           </label>
+
           <label className="register__label">
             <span className="register__label-text">Пароль</span>
             <input
@@ -63,15 +91,15 @@ export default function Register() {
             <span className="register__error">{errors.password || ''}</span>
           </label>
         </div>
+
         <button
           type="submit"
-          className={`register__button ${
-            !isValid && 'register__button_disabled'
-          }`}
+          className={`register__button ${!isValid && 'register__button_disabled'}`}
           disabled={!isValid}
         >
           Зарегистрироваться
         </button>
+
         <span className="register__support">
           Уже зарегистрированы?&nbsp;
           <Link to="signin" className="register__link">

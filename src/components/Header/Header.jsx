@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom';
 import './Header.css';
-import Navigation from '../Navigation/Navigation.jsx';
+import Navigation from '../Navigation/Navigation';
 import logo from '../../images/logo.svg';
 
-function Header({ themeDark, authorized, onClickBurger, isBurgerOpened }) {
+export const headerEndpoints = ["/movies", "/saved-movies", "/profile", "/"];
+
+function Header() {
   return (
-    <header className={`header header_theme_${themeDark ? 'dark' : 'light'}`}>
+    <header className="header">
       <div className="header__container">
-        <Link to="/" className="header__link">
+        <Link to='/' className='header__link'>
           <img src={logo} alt="Логотип" />
         </Link>
-        <Navigation authorized={authorized} onClickBurger={onClickBurger} isBurgerOpened={isBurgerOpened} />
+
+        <Navigation/>
       </div>
     </header>
   );

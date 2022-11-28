@@ -9,7 +9,7 @@
 .techs__container {
   max-width: 1280px;
   width: 100%;
-  padding: 100px 70px;
+  padding: 78px 70px 100px;
   display: flex;
   box-sizing: border-box;
   align-items: center;
@@ -23,6 +23,7 @@
   line-height: 1.23;
   letter-spacing: -0.04em;
   border-bottom: 1px solid #000;
+  padding-top: 22px;
   padding-bottom: 22px;
   width: 100%;
   box-sizing: border-box;
@@ -75,7 +76,7 @@
 
 @media screen and (max-width: 800px) {
   .techs__container {
-    padding: 90px 50px;
+    padding: 68px 50px 90px;
   }
 
   .techs__quantity {
@@ -105,12 +106,13 @@
   }
 
   .techs__container {
-    padding: 70px 18px;
+    padding: 43px 18px 70px;
   }
 
   .techs__title {
     font-size: 18px;
     line-height: 1.22;
+    padding-top: 27px;
     padding-bottom: 27px;
   }
 

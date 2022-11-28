@@ -18,12 +18,12 @@
   box-sizing: border-box;
   background-color: #fff;
   overflow: hidden;
+  width: 100%;
 }
 
 .movies-card__item {
   display: flex;
   flex-direction: column;
-  /* gap: 2px; */
 }
 
 .movies-card__poster {
@@ -48,7 +48,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 265px;
+  max-width: 290px;
   letter-spacing: 0.08rem;
 }
 
@@ -86,16 +86,16 @@
   animation: heartbeat 0.2s ease-in 2;
 }
 
-.movies-card__button_type_unsave {
+.movies-card__button_type_delete {
   background-image: url("../../images/delete-card.svg");
-  opacity: 0;
-}
-
-.movies-card:hover .movies-card__button_type_unsave {
   opacity: 1;
 }
 
-.movies-card:hover .movies-card__button_type_unsave:hover {
+.movies-card:hover .movies-card__button_type_delete {
+  opacity: 0.8;
+}
+
+.movies-card:hover .movies-card__button_type_delete:hover {
   opacity: 0.8;
 }
 
@@ -142,7 +142,7 @@
 }
 
 @media screen and (max-width: 583px) {
-  .movies-card__button_type_unsave {
+  .movies-card__button_type_delete {
     opacity: 1;
   }
 

@@ -1,73 +1,193 @@
-import './App.css';
-import moviesData from '../../utils/moviesTemplate';
-import { useState, useEffect } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
-import Header from '../Header/Header';
-import Main from '../Main/Main.jsx';
-import Footer from '../Footer/Footer.jsx';
-import Movies from '../Movies/Movies.jsx';
-import SavedMovies from '../Movies/Movies.jsx';
-import Register from '../Register/Register.jsx';
-import Login from '../Login/Login.jsx';
-import Profile from '../Profile/Profile.jsx';
-import NotFound from '../NotFound/NotFound.jsx';
+import "./App.css";
+import mainApi from "../../api/MainApi.js";
+import { CurrentUserContext, LoaderContext, MoviesContext, PopupContext, SavedMoviesContext } from "../../contexts";
+import { useState, useEffect, useCallback } from "react";
+import {
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+} from "react-router-dom";
+import Header, { headerEndpoints } from "../Header/Header";
+import Main from "../Main/Main";
+import Footer, { footerEndpoints } from "../Footer/Footer";
+import Movies from "../Movies/Movies";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
+import Profile from "../Profile/Profile";
+import NotFound from "../NotFound/NotFound";
+import Loader from "../Loader/Loader";
+import Popup from "../Popup/Popup";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import { JWT_LS_KEY } from "../../utils/constants";
 
-export default function App() {
+function App() {
   const history = useHistory();
-  const [isBurgerOpened, setIsBurgerOpened] = useState(false);
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
+  const [gettingInitials, setGettingInitials] = useState(true);
+  const [isLoaderVisible, setIsLoaderVisible] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
 
-  function onClickBurger(isBurgerOpened) {
-    setIsBurgerOpened(!isBurgerOpened);
-  };
+  const [popup, setPopup] = useState({
+    isOpen: false,
+    successful: true,
+    text: "",
+  });
 
-  function goBack() {
-    history.goBack();
-  };
+  function handleLogin({ email, password }) {
+    setIsLoaderVisible(true);
+
+    mainApi
+      .login(email, password)
+      .then(({ token }) => {
+        localStorage.setItem(JWT_LS_KEY, token);
+
+        mainApi
+          .getUserInfo()
+          .then(user => {
+            setCurrentUser(user)
+            history.push("/movies")
+
+            setPopup({
+              isOpen: true,
+              successful: true,
+              text: "Добро пожаловать!",
+            });
+
+            setIsLoaderVisible(false)
+          })
+          .catch(err => { throw err })
+      })
+      .catch((err) => {
+        setPopup({
+          isOpen: true,
+          successful: false,
+          text: err,
+        })
+
+        setIsLoaderVisible(false)
+      })
+  }
+
+  const signOut = useCallback(() => {
+    setCurrentUser(null);
+    setMovies([])
+    setSavedMovies([])
+    localStorage.clear();
+    history.push("/");
+  }, [history])
 
   useEffect(() => {
-    setMovies(moviesData);
+    mainApi.setOnUnauthorizedHandler(signOut)
+  }, [signOut])
+
+  useEffect(() => {
+    const jwt = localStorage.getItem(JWT_LS_KEY);
+
+    if (jwt) {
+      mainApi
+        .getUserInfo()
+        .then(user => {
+          setCurrentUser(user);
+        })
+        .catch(errorMessage => {
+          setPopup({
+            isOpen: true,
+            successful: false,
+            text: errorMessage,
+          })
+
+          setGettingInitials(false);
+        })
+        .finally(() => {
+          setIsAuthChecking(false);
+        });
+    } else {
+      localStorage.clear();
+      setIsAuthChecking(false);
+      setGettingInitials(false);
+    }
   }, []);
 
   useEffect(() => {
-    setSavedMovies(moviesData.filter((movie) => {
-      return movie.saved
-    }))
-  }, []);
+    if (currentUser) {
+      Promise.all([
+        mainApi.getSavedMovies(),
+      ]).then(([userSavedMovies]) => {
+        setSavedMovies(userSavedMovies)
+      }).catch(err => {
+        setPopup({
+          isOpen: true,
+          successful: false,
+          text: err,
+        })
+      }).finally(() => setGettingInitials(false));
+    }
+  }, [currentUser]);
 
   return (
-    <div className="app">
-      <Switch>
-        <Route path="/" exact>
-          <Header themeDark={false} authorized={false} onClickBurger={onClickBurger} isBurgerOpened={isBurgerOpened} />
-          <Main />
-          <Footer />
-        </Route>
-        <Route path="/movies">
-          <Header themeDark={true} authorized={true} onClickBurger={onClickBurger} isBurgerOpened={isBurgerOpened} />
-          <Movies movies={movies} />
-          <Footer />
-        </Route>
-        <Route exact path="/saved-movies">
-          <Header themeDark={true} authorized={true} onClickBurger={onClickBurger} isBurgerOpened={isBurgerOpened} />
-          <SavedMovies movies={savedMovies}/>
-          <Footer />
-        </Route>
-        <Route exact path="/signup">
-          <Register />
-        </Route>
-        <Route exact path="/signin">
-          <Login />
-        </Route>
-        <Route exact path="/profile">
-          <Header themeDark={true} authorized={true} onClickBurger={onClickBurger} isBurgerOpened={isBurgerOpened} />
-          <Profile />
-        </Route>
-        <Route path="*">
-          <NotFound goBack={goBack} />
-        </Route>
-      </Switch>
-    </div>
-  )
+    <LoaderContext.Provider value={{ isLoaderVisible, setIsLoaderVisible }}>
+      <PopupContext.Provider value={{ popup, setPopup }}>
+        <CurrentUserContext.Provider value={{ currentUser, setCurrentUser, signOut }}>
+          <MoviesContext.Provider value={{ movies, setMovies }}>
+            <SavedMoviesContext.Provider value={{ savedMovies, setSavedMovies }}>
+              <div className="app">
+                {(isAuthChecking || gettingInitials) ? <Loader /> : (
+                  <>
+                    {isLoaderVisible && <Loader />}
+                    <Popup />
+
+                    <Route exact path={headerEndpoints}>
+                      <Header />
+                    </Route>
+
+                    <Switch>
+                      <Route exact path="/">
+                        <Main />
+                      </Route>
+
+                      <Route exact path="/signup">
+                        {currentUser ? <Redirect to="/" /> : <Register handleLogin={handleLogin} />}
+                      </Route>
+
+                      <Route exact path="/signin">
+                        {currentUser ? <Redirect to="/" /> : <Login handleLogin={handleLogin} />}
+                      </Route>
+
+                      <ProtectedRoute
+                        path="/movies"
+                        component={Movies}
+                      />
+
+                      <ProtectedRoute
+                        path="/saved-movies"
+                        component={Movies}
+                      />
+
+                      <ProtectedRoute
+                        path="/profile"
+                        component={Profile}
+                      />
+
+                      <Route path="*">
+                        <NotFound />
+                      </Route>
+                    </Switch>
+
+                    <Route exact path={footerEndpoints}>
+                      <Footer />
+                    </Route>
+                  </>
+                )}
+              </div>
+            </SavedMoviesContext.Provider>
+          </MoviesContext.Provider>
+        </CurrentUserContext.Provider>
+      </PopupContext.Provider>
+    </LoaderContext.Provider>
+  );
 }
+
+export default App

@@ -10,7 +10,7 @@
 .aboutme__container {
   max-width: 1280px;
   width: 100%;
-  padding: 110px 70px 100px;
+  padding: 88px 70px 100px;
   display: flex;
   box-sizing: border-box;
   align-items: center;
@@ -24,6 +24,7 @@
   line-height: 1.23;
   letter-spacing: -0.04em;
   border-bottom: 1px solid #000;
+  padding-top: 22px;
   padding-bottom: 22px;
   width: 100%;
   box-sizing: border-box;
@@ -98,7 +99,7 @@
 
 @media screen and (max-width: 800px) {
   .aboutme__container {
-    padding: 92px 50px;
+    padding: 70px 50px 92px;
   }
 
   .aboutme__biography {
@@ -154,12 +155,13 @@
 
 @media screen and (max-width: 400px) {
   .aboutme__container {
-    padding: 71px 14px;
+    padding: 43px 14px 71px;
   }
 
   .aboutme__title {
     font-size: 18px;
     line-height: 1.22;
+    padding-top: 28px;
     padding-bottom: 28px;
   }
 

@@ -1,7 +1,13 @@
+import { useHistory } from "react-router-dom";
 import "./NotFound.css";
 
+export default function NotFound() {
+  const history = useHistory();
 
-export default function NotFound({ goBack }) {
+  function goBack() {
+    history.goBack();
+  }
+
   return (
     <main className="notfound">
       <p className="notfound__text-container">
