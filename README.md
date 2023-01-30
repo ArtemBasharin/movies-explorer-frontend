@@ -76,4 +76,3 @@
 - Домен бэка [https://api.movex.nomoredomains.sbs](https://api.movex.nomoredomains.sbs)
 - IP сервера `51.250.10.237`
 - Макет на [Figma](https://www.figma.com/proto/cASM20ikAsPlTi2doec68Q/Diploma?node-id=932%3A2618&scaling=min-zoom&page-id=891%3A3857)
-- ссылка на пулл-реквест в [GitHub] (https://github.com/ArtemBasharin/movies-explorer-frontend/pull/3#issue-1456635198)
